@@ -11,6 +11,6 @@ import { TelaConversorComponent } from './tela-conversor/tela-conversor.componen
   imports: [
     CommonModule
   ],
-  exports: []
+  exports: [TelaConversorComponent]
 })
 export class ConversorModule { }
