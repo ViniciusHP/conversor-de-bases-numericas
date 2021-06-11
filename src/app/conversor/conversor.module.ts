@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
 
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+
+import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
 
 
 @NgModule({
@@ -9,7 +13,11 @@ import { TelaConversorComponent } from './tela-conversor/tela-conversor.componen
     TelaConversorComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+
+    InputTextModule,
+    DropdownModule,
+    ButtonModule
   ],
   exports: [TelaConversorComponent]
 })
