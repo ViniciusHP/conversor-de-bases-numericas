@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 body {
   background: var(--surface-b);
   padding: 20px;
+}
+body,
+body .p-component,
+body .p-inputtext{
+  font-family: 'Poppins', sans-serif;
 }
