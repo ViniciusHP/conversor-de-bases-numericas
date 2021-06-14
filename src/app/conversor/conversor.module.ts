@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
 import { FormsModule } from '@angular/forms';
+import { ConversorService } from './conversor.service';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     DropdownModule,
     ButtonModule
   ],
-  exports: [TelaConversorComponent]
+  exports: [TelaConversorComponent],
+  providers: [ConversorService]
 })
 export class ConversorModule { }

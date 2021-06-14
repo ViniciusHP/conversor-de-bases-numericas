@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConversorService } from '../conversor.service';
 
 export class DadoDeCoversao {
   constructor(
@@ -23,13 +24,15 @@ export class TelaConversorComponent implements OnInit {
     { label: 'Decimal', value: 'Decimal' }
   ];
 
-  constructor() { }
+  constructor(
+    private conversorService: ConversorService
+  ) { }
 
   ngOnInit(): void {
   }
 
   converter(): void {
-    console.log(this.dadosDoFormulario);
+
   }
 
 }
