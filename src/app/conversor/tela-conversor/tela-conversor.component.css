@@ -1,0 +1,67 @@
+
+h1 {
+  font-weight: 300;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.icone-flecha{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--green-600);
+  animation: animacao-flecha-esquerda-direita .5s ease-in-out alternate infinite;
+}
+
+.pi-arrow-down {
+  display: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.card {
+  background: var(--surface-a);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
+}
+
+@keyframes animacao-flecha-esquerda-direita {
+  from{
+    transform: translateX(-5px);
+  }
+  to{
+    transform: translateX(5px);
+  }
+}
+
+@keyframes animacao-flecha-cima-baixo {
+  from{
+    transform: translateY(-5px);
+  }
+  to{
+    transform: translateY(5px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pi-arrow-right {
+    display: none;
+  }
+  .pi-arrow-down {
+    display: flex;
+  }
+  .icone-flecha {
+    animation: animacao-flecha-cima-baixo .5s ease-in-out alternate infinite;
+  }
+}
