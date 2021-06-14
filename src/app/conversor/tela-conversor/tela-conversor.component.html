@@ -5,7 +5,8 @@
         <h1>Conversor de Bases Numéricas</h1>
       </div>
       <div class="p-md-5 p-fluid p-grid">
-        <div class="p-col-12 p-fluid">
+        <div class="p-col-12 p-fluid p-field">
+          <label>De:</label>
           <p-dropdown [options]="bases" placeholder="Selecione a base inicial"
             name="baseInicial" [(ngModel)]="dadosDoFormulario.baseInicial"
             #baseInicial [required]="true"></p-dropdown>
@@ -21,7 +22,8 @@
         <i class="pi pi-arrow-down icone-flecha"></i>
       </div>
       <div class="p-md-5 p-fluid p-grid">
-        <div class="p-col-12 p-fluid">
+        <div class="p-col-12 p-fluid p-field">
+          <label>Para:</label>
           <p-dropdown [options]="bases" placeholder="Selecione a base desejada"
             name="baseFinal" [(ngModel)]="dadosDoFormulario.baseFinal"
             #baseFinal [required]="true"></p-dropdown>
