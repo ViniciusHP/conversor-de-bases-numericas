@@ -1,16 +1,19 @@
 <div class="container">
-  <form>
+  <form autocomplete="off" #formulario="ngForm" (ngSubmit)="converter()">
     <div class="p-grid p-jc-center p-ai-center card">
       <div class="p-col-12 p-text-center">
         <h1>Conversor de Bases Numéricas</h1>
       </div>
       <div class="p-md-5 p-fluid p-grid">
         <div class="p-col-12 p-fluid">
-          <p-dropdown placeholder="Selecione a base inicial"></p-dropdown>
+          <p-dropdown [options]="bases" placeholder="Selecione a base inicial"
+            name="baseInicial" [(ngModel)]="dadosDoFormulario.baseInicial"
+            #baseInicial [required]="true"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
-          <label for="valorInicial">Valor na base inicial:</label>
-          <input pInputText type="text" id="valorInicial">
+          <label for="valorInicial">Valor na base {{ baseInicial.value || 'inicial'}}:</label>
+          <input pInputText type="text" id="valorInicial"
+            name="valorInicial" [(ngModel)]="dadosDoFormulario.valorInicial" required >
         </div>
       </div>
       <div class="p-col-1 p-fluid p-field">
@@ -19,15 +22,19 @@
       </div>
       <div class="p-md-5 p-fluid p-grid">
         <div class="p-col-12 p-fluid">
-          <p-dropdown placeholder="Selecione a base desejada"></p-dropdown>
+          <p-dropdown [options]="bases" placeholder="Selecione a base desejada"
+            name="baseFinal" [(ngModel)]="dadosDoFormulario.baseFinal"
+            #baseFinal [required]="true"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
-          <label for="valorFinal">Valor na base desejada:</label>
-          <input pInputText type="text" id="valorFinal">
+          <label for="valorFinal">Valor na base {{ baseFinal.value || 'desejada'}}:</label>
+          <input pInputText type="text" id="valorFinal"
+            name="valorFinal" [(ngModel)]="dadosDoFormulario.valorFinal" >
         </div>
       </div>
       <div class="p-col-12 p-d-flex p-jc-center">
-        <button pButton type="submit" label="Converter"></button>
+        <button pButton type="submit" label="Converter"
+          [disabled]="formulario.invalid"></button>
       </div>
     </div>
   </form>
