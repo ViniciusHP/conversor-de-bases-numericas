@@ -2,6 +2,7 @@
 body {
   background: var(--surface-b);
   padding: 20px;
+  margin: 0;
 }
 body,
 body .p-component,
