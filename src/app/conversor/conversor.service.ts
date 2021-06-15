@@ -23,4 +23,35 @@ export class ConversorService {
         resolve(soma.toString());
     });
   }
+
+  converterDecimalParaBinario(valDecimal: string): Promise<string>{
+    return new Promise((resolve, reject) => {
+        let valor = Number(valDecimal);
+        const divisor = 2;
+        if(valor < 2){
+          resolve(valor.toString());
+        }
+
+        let valorBinarioInvertido = '';
+
+        while(valor >= divisor) {
+          const resto = Math.floor(valor % divisor);
+          const quociente = Math.floor(valor / divisor);
+          valorBinarioInvertido += resto.toString();
+
+          if(quociente == 1){
+            valorBinarioInvertido += quociente.toString();
+          }
+
+          valor = quociente;
+        }
+        let valorBinario = '';
+
+        for(let index = valorBinarioInvertido.length - 1; index >= 0; index--){
+          valorBinario += valorBinarioInvertido.charAt(index);
+        }
+
+        resolve(valorBinario);
+    });
+  }
 }
