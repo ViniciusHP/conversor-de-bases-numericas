@@ -7,6 +7,37 @@ export class ConversorService {
 
   constructor() { }
 
+  converterBinarioParaOctal(valorBinario: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+
+      let expoente = 0;
+      const indiceFinal = valorBinario.length - 1;
+      let soma = 0;
+
+      let valorOctalInvertido = '';
+
+      for(let indice = indiceFinal; indice >= 0; indice--) {
+        soma += (Number(valorBinario.charAt(indice)) * Math.pow(2, expoente));
+        expoente++;
+
+        if(expoente == 3 || indice == 0){
+          valorOctalInvertido = valorOctalInvertido.concat(soma.toString());
+          expoente = 0;
+          soma = 0;
+        }
+      }
+
+      let valorOctal = '';
+
+      for(let indice = valorOctalInvertido.length - 1; indice >= 0; indice--){
+        valorOctal += valorOctalInvertido.charAt(indice);
+      }
+
+      resolve(valorOctal);
+
+    });
+  }
+
   converterBinarioParaDecimal(valBinario: string): Promise<string>{
     return new Promise((resolve, reject) => {
         const base = 2;
