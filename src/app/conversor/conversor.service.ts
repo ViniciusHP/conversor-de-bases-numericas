@@ -27,14 +27,7 @@ export class ConversorService {
         }
       }
 
-      let valorOctal = '';
-
-      for(let indice = valorOctalInvertido.length - 1; indice >= 0; indice--){
-        valorOctal += valorOctalInvertido.charAt(indice);
-      }
-
-      resolve(valorOctal);
-
+      resolve(this.inverterOrdemDosNumeros(valorOctalInvertido));
     });
   }
 
@@ -76,13 +69,16 @@ export class ConversorService {
 
           valor = quociente;
         }
-        let valorBinario = '';
 
-        for(let index = valorBinarioInvertido.length - 1; index >= 0; index--){
-          valorBinario += valorBinarioInvertido.charAt(index);
-        }
-
-        resolve(valorBinario);
+        resolve(this.inverterOrdemDosNumeros(valorBinarioInvertido));
     });
+  }
+
+  private inverterOrdemDosNumeros(numero: string): string {
+    let numeroInvertido = '';
+    for(let index = numero.length - 1; index >= 0; index--){
+      numeroInvertido += numero.charAt(index);
+    }
+    return numeroInvertido;
   }
 }
