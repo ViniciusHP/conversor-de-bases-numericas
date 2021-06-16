@@ -31,15 +31,15 @@ export class ConversorService {
     });
   }
 
-  converterBinarioParaDecimal(valBinario: string): Promise<string>{
+  converterBinarioParaDecimal(valorBinario: string): Promise<string>{
     return new Promise((resolve, reject) => {
         const base = 2;
         let expoente = 0;
-        const indiceFinal = valBinario.length - 1;
+        const indiceFinal = valorBinario.length - 1;
         let soma = 0;
 
         for(let indice = indiceFinal; indice >= 0; indice--) {
-          const algarismo = Number(valBinario.charAt(indice));
+          const algarismo = Number(valorBinario.charAt(indice));
           soma += Math.pow(base, expoente) * algarismo;
           expoente++;
         }
@@ -48,9 +48,10 @@ export class ConversorService {
     });
   }
 
-  converterDecimalParaBinario(valDecimal: string): Promise<string>{
+
+  converterDecimalParaBinario(valorDecimal: string): Promise<string>{
     return new Promise((resolve, reject) => {
-        let valor = Number(valDecimal);
+        let valor = Number(valorDecimal);
         const divisor = 2;
         if(valor < 2){
           resolve(valor.toString());
