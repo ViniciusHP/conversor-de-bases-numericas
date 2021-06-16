@@ -35,7 +35,7 @@ export class ConversorService {
         let valorBinarioInvertido = '';
 
         while(valor >= divisor) {
-          const resto = Math.floor(valor % divisor);
+          const resto = valor % divisor;
           const quociente = Math.floor(valor / divisor);
           valorBinarioInvertido += resto.toString();
 
