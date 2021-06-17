@@ -32,12 +32,7 @@ export class TelaConversorComponent implements OnInit {
   }
 
   converter(): void {
-    const valor = this.dadosDoFormulario.valorInicial ? this.dadosDoFormulario.valorInicial.toString() : null;
-    if(valor){
-      this.conversorService.converterDecimalParaBinario(valor)
-        .then((v: string) => this.dadosDoFormulario.valorFinal = v)
-        .catch(console.log);
-    }
+
   }
 
 }

@@ -31,7 +31,7 @@ export class ConversorService {
     });
   }
 
-  converterBinarioParaDecimal(valorBinario: string): Promise<string>{
+  converterBinarioParaDecimal(valorBinario: string): Promise<string> {
     return new Promise((resolve, reject) => {
         const base = 2;
         let expoente = 0;
@@ -48,8 +48,32 @@ export class ConversorService {
     });
   }
 
+  converterBinarioParaHexadecimal(valorBinario: string): Promise<string> {
+    return new Promise((resolve, reject) => {
 
-  converterDecimalParaBinario(valorDecimal: string): Promise<string>{
+      let expoente = 0;
+      const indiceFinal = valorBinario.length - 1;
+      let soma = 0;
+
+      let valorHexadecimalInvertido = '';
+
+      for(let indice = indiceFinal; indice >= 0; indice--) {
+        soma += (Number(valorBinario.charAt(indice)) * Math.pow(2, expoente));
+        expoente++;
+
+        if(expoente == 4 || indice == 0){
+          const algarismoHexadecimal = this.getAlgarismoHexadecimalCorrespondente(soma.toString());
+          valorHexadecimalInvertido = valorHexadecimalInvertido.concat(algarismoHexadecimal);
+          expoente = 0;
+          soma = 0;
+        }
+      }
+
+      resolve(this.inverterOrdemDosNumeros(valorHexadecimalInvertido));
+    })
+  }
+
+  converterDecimalParaBinario(valorDecimal: string): Promise<string> {
     return new Promise((resolve, reject) => {
         let valor = Number(valorDecimal);
         const divisor = 2;
@@ -81,5 +105,35 @@ export class ConversorService {
       numeroInvertido += numero.charAt(index);
     }
     return numeroInvertido;
+  }
+
+  private getAlgarismoHexadecimalCorrespondente(digitoDecimal: string): string {
+
+    const conjuntoHexadecimal:  { [key: string]: string }  = {
+      '0': '0',
+      '1': '1',
+      '2': '2',
+      '3': '3',
+      '4': '4',
+      '5': '5',
+      '6': '6',
+      '7': '7',
+      '8': '8',
+      '9': '9',
+      '10': 'A',
+      '11': 'B',
+      '12': 'C',
+      '13': 'D',
+      '14': 'E',
+      '15': 'F'
+    }
+
+    let valor = conjuntoHexadecimal[digitoDecimal];
+
+    if(!valor) {
+      throw new Error(`O digito '${digitoDecimal}' não é um dígito válido. `);
+    }
+
+    return valor;
   }
 }
