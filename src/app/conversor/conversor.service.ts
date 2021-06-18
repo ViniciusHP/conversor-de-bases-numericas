@@ -125,4 +125,30 @@ export class ConversorService {
         resolve(inverterOrdemDosNumeros(valorOctalInvertido));
     });
   }
+
+  converterDecimalParaHexadecimal(valorDecimal: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        let valor = Number(valorDecimal);
+        const divisor = 16;
+        if(valor < 16){
+          resolve(obtemAlgarismoHexadecimalCorrespondenteAoDecimal(valor.toString()));
+        }
+
+        let valorHexadecimalInvertido = '';
+
+        while(valor >= divisor) {
+          const resto = valor % divisor;
+          const quociente = Math.floor(valor / divisor);
+          valorHexadecimalInvertido += obtemAlgarismoHexadecimalCorrespondenteAoDecimal(resto.toString());
+
+          if(quociente < 16){
+            valorHexadecimalInvertido += obtemAlgarismoHexadecimalCorrespondenteAoDecimal(quociente.toString());
+          }
+
+          valor = quociente;
+        }
+
+        resolve(inverterOrdemDosNumeros(valorHexadecimalInvertido));
+    });
+  }
 }
