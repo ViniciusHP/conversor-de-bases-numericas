@@ -99,4 +99,30 @@ export class ConversorService {
         resolve(inverterOrdemDosNumeros(valorBinarioInvertido));
     });
   }
+
+  converterDecimalParaOctal(valorDecimal: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+        let valor = Number(valorDecimal);
+        const divisor = 8;
+        if(valor < 8){
+          resolve(valor.toString());
+        }
+
+        let valorOctalInvertido = '';
+
+        while(valor >= divisor) {
+          const resto = valor % divisor;
+          const quociente = Math.floor(valor / divisor);
+          valorOctalInvertido += resto.toString();
+
+          if(quociente < 8){
+            valorOctalInvertido += quociente.toString();
+          }
+
+          valor = quociente;
+        }
+
+        resolve(inverterOrdemDosNumeros(valorOctalInvertido));
+    });
+  }
 }
