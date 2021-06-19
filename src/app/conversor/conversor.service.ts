@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { inverterOrdemDosNumeros, obtemAlgarismoHexadecimalCorrespondenteAoDecimal } from './conversor-helper'
+import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal } from './conversor-helper'
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +63,7 @@ export class ConversorService {
         expoente++;
 
         if(expoente == 4 || indice == 0){
-          const algarismoHexadecimal = obtemAlgarismoHexadecimalCorrespondenteAoDecimal(soma.toString());
+          const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
           valorHexadecimalInvertido = valorHexadecimalInvertido.concat(algarismoHexadecimal);
           expoente = 0;
           soma = 0;
@@ -131,7 +131,7 @@ export class ConversorService {
         let valor = Number(valorDecimal);
         const divisor = 16;
         if(valor < 16){
-          resolve(obtemAlgarismoHexadecimalCorrespondenteAoDecimal(valor.toString()));
+          resolve(converterAlgarismoDecimalParaHexadecimal(valor.toString()));
         }
 
         let valorHexadecimalInvertido = '';
@@ -139,10 +139,10 @@ export class ConversorService {
         while(valor >= divisor) {
           const resto = valor % divisor;
           const quociente = Math.floor(valor / divisor);
-          valorHexadecimalInvertido += obtemAlgarismoHexadecimalCorrespondenteAoDecimal(resto.toString());
+          valorHexadecimalInvertido += converterAlgarismoDecimalParaHexadecimal(resto.toString());
 
           if(quociente < 16){
-            valorHexadecimalInvertido += obtemAlgarismoHexadecimalCorrespondenteAoDecimal(quociente.toString());
+            valorHexadecimalInvertido += converterAlgarismoDecimalParaHexadecimal(quociente.toString());
           }
 
           valor = quociente;

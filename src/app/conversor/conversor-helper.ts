@@ -6,7 +6,7 @@ export function inverterOrdemDosNumeros(numero: string): string {
   return numeroInvertido;
 }
 
-export function obtemAlgarismoHexadecimalCorrespondenteAoDecimal(digitoDecimal: string): string {
+export function converterAlgarismoDecimalParaHexadecimal(digitoDecimal: string): string {
 
   const conjuntoHexadecimal:  { [key: string]: string }  = {
     '0': '0',
