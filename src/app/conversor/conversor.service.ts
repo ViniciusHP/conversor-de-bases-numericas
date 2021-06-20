@@ -165,4 +165,19 @@ export class ConversorService {
       resolve(removerZerosAEsquerda(valorBinario));
     });
   }
+
+  converterOctalParaDecimal(valorOctal: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const indiceFinal = valorOctal.length - 1;
+      let expoente = 0;
+      let soma = 0;
+      for(let indice = indiceFinal; indice >= 0; indice--){
+        let algarismo = Number(valorOctal.charAt(indice));
+        soma += (Math.pow(8, expoente) * algarismo);
+        expoente++;
+      }
+
+      resolve(soma.toString());
+    });
+  }
 }

@@ -42,7 +42,8 @@ export class TelaConversorComponent implements OnInit {
       'Decimal-Binária': this.conversorService.converterDecimalParaBinario,
       'Decimal-Octal': this.conversorService.converterDecimalParaOctal,
       'Decimal-Hexadecimal': this.conversorService.converterDecimalParaHexadecimal,
-      'Octal-Binária': this.conversorService.converterOctalParaBinario
+      'Octal-Binária': this.conversorService.converterOctalParaBinario,
+      'Octal-Decimal': this.conversorService.converterOctalParaDecimal
     };
   }
 
