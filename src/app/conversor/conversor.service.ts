@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal } from './conversor-helper'
+import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
+  converterAlgarismoOctalParaBinario, removerZerosAEsquerda } from './conversor-helper'
 
 @Injectable({
   providedIn: 'root'
@@ -149,6 +150,19 @@ export class ConversorService {
         }
 
         resolve(inverterOrdemDosNumeros(valorHexadecimalInvertido));
+    });
+  }
+
+  converterOctalParaBinario(valorOctal: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      let valorBinario = '';
+      const indiceFinal = valorOctal.length - 1;
+      for(let indice = indiceFinal; indice >= 0; indice--){
+        const algarismo = valorOctal.charAt(indice);
+        const binario = converterAlgarismoOctalParaBinario(algarismo);
+        valorBinario = binario.concat(valorBinario);
+      }
+      resolve(removerZerosAEsquerda(valorBinario));
     });
   }
 }

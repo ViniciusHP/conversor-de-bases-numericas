@@ -1,3 +1,14 @@
+const mapeamentoOctalParaBinario: { [key: string]: string } = {
+  '0': '000',
+  '1': '001',
+  '2': '010',
+  '3': '011',
+  '4': '100',
+  '5': '101',
+  '6': '110',
+  '7': '111',
+};
+
 export function inverterOrdemDosNumeros(numero: string): string {
   let numeroInvertido = '';
   for(let index = numero.length - 1; index >= 0; index--){
@@ -34,4 +45,32 @@ export function converterAlgarismoDecimalParaHexadecimal(digitoDecimal: string):
   }
 
   return valor;
+}
+
+export function converterAlgarismoOctalParaBinario(digitoOctal: string) {
+  let valorBinario = mapeamentoOctalParaBinario[digitoOctal];
+
+  if(!valorBinario) {
+    throw new Error(`O digito '${digitoOctal}' não é um dígito válido. `);
+  }
+
+  return valorBinario;
+}
+
+export function removerZerosAEsquerda(valor: string) {
+  let valorFinal = '';
+  let primeiroAlgarismoEncontrado = false;
+  for(let indice = 0; indice < valor.length; indice++){
+    let algarismo = valor.charAt(indice);
+    if(algarismo != '0' && !primeiroAlgarismoEncontrado){
+      primeiroAlgarismoEncontrado = true;
+      console.log(`Algarismo diferente de 0 e é primeiro algarismo: ${algarismo}`);
+    }
+
+    if(primeiroAlgarismoEncontrado){
+      valorFinal = valorFinal.concat(algarismo);
+      console.log(`Algarismo: ${algarismo}`);
+    }
+  }
+  return valorFinal;
 }
