@@ -84,7 +84,7 @@ export function converterAlgarismoDecimalParaHexadecimal(digitoDecimal: string):
   return valor;
 }
 
-export function converterAlgarismoOctalParaBinario(digitoOctal: string) {
+export function converterAlgarismoOctalParaBinario(digitoOctal: string): string {
   let valorBinario = mapeamentoOctalParaBinario[digitoOctal];
 
   if(!valorBinario) {
@@ -94,7 +94,7 @@ export function converterAlgarismoOctalParaBinario(digitoOctal: string) {
   return valorBinario;
 }
 
-export function converterAlgarismoHexadecimalParaBinario(digitoHexadecimal: string) {
+export function converterAlgarismoHexadecimalParaBinario(digitoHexadecimal: string): string {
   let valorBinario = mapeamentoHexadecimalParaBinario[digitoHexadecimal.toUpperCase()];
 
   if(!valorBinario) {
@@ -104,7 +104,7 @@ export function converterAlgarismoHexadecimalParaBinario(digitoHexadecimal: stri
   return valorBinario;
 }
 
-export function converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal: string) {
+export function converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal: string): string {
   let valorDecimal = mapeamentoHexadecimalParaDecimal[digitoHexadecimal.toUpperCase()];
 
   if(!valorDecimal) {
@@ -114,7 +114,7 @@ export function converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal: stri
   return valorDecimal;
 }
 
-export function removerZerosAEsquerda(valor: string) {
+export function removerZerosAEsquerda(valor: string): string {
   let valorFinal = '';
   let primeiroAlgarismoEncontrado = false;
   for(let indice = 0; indice < valor.length; indice++){
