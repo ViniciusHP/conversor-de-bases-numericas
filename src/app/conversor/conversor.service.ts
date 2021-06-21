@@ -7,7 +7,10 @@ import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
 })
 export class ConversorService {
 
-  constructor() { }
+  constructor() {
+    // Fazendo binding do this
+    this.converterOctalParaHexadecimal = this.converterOctalParaHexadecimal.bind(this);
+  }
 
   converterBinarioParaOctal(valorBinario: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -179,5 +182,10 @@ export class ConversorService {
 
       resolve(soma.toString());
     });
+  }
+
+  converterOctalParaHexadecimal(valorOctal: string): Promise<string> {
+    return this.converterOctalParaBinario(valorOctal)
+      .then((valorBinario: string) => this.converterBinarioParaHexadecimal(valorBinario));
   }
 }
