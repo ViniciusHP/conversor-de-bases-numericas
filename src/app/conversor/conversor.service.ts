@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
   converterAlgarismoOctalParaBinario, converterAlgarismoHexadecimalParaBinario,
-  removerZerosAEsquerda } from './conversor-helper'
+  converterAlgarismoHexadecimalParaDecimal, removerZerosAEsquerda } from './conversor-helper'
 
 @Injectable({
   providedIn: 'root'
@@ -201,6 +201,21 @@ export class ConversorService {
       }
 
       resolve(removerZerosAEsquerda(valorBinario));
+    });
+  }
+
+  converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
+    return new Promise((resolve, reject) => {
+      const indiceFinal = valorHexadecimal.length - 1;
+      let expoente = 0;
+      let soma = 0;
+      for(let indice = indiceFinal; indice >= 0; indice--) {
+        const algarismoHexadecimal = valorHexadecimal.charAt(indice);
+        const algarismoDecimal = Number(converterAlgarismoHexadecimalParaDecimal(algarismoHexadecimal));
+        soma += (Math.pow(16, expoente) * algarismoDecimal);
+        expoente++;
+      }
+      resolve(soma.toString());
     });
   }
 }

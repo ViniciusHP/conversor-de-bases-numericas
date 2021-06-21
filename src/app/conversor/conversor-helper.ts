@@ -47,6 +47,25 @@ const mapeamentoHexadecimalParaBinario: { [key: string]: string } = {
   'F': '1111'
 }
 
+const mapeamentoHexadecimalParaDecimal:  { [key: string]: string }  = {
+  '0': '0',
+  '1': '1',
+  '2': '2',
+  '3': '3',
+  '4': '4',
+  '5': '5',
+  '6': '6',
+  '7': '7',
+  '8': '8',
+  '9': '9',
+  'A': '10',
+  'B': '11',
+  'C': '12',
+  'D': '13',
+  'E': '14',
+  'F': '15'
+};
+
 export function inverterOrdemDosNumeros(numero: string): string {
   let numeroInvertido = '';
   for(let index = numero.length - 1; index >= 0; index--){
@@ -83,6 +102,16 @@ export function converterAlgarismoHexadecimalParaBinario(digitoHexadecimal: stri
   }
 
   return valorBinario;
+}
+
+export function converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal: string) {
+  let valorDecimal = mapeamentoHexadecimalParaDecimal[digitoHexadecimal.toUpperCase()];
+
+  if(!valorDecimal) {
+    throw new Error(`O digito '${digitoHexadecimal}' não é um dígito Hexadecimal válido.`);
+  }
+
+  return valorDecimal;
 }
 
 export function removerZerosAEsquerda(valor: string) {
