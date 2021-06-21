@@ -28,6 +28,25 @@ const mapeamentoDecimalParaHexadecimal:  { [key: string]: string }  = {
   '15': 'F'
 };
 
+const mapeamentoHexadecimalParaBinario: { [key: string]: string } = {
+  '0': '0000',
+  '1': '0001',
+  '2': '0010',
+  '3': '0011',
+  '4': '0100',
+  '5': '0101',
+  '6': '0110',
+  '7': '0111',
+  '8': '1000',
+  '9': '1001',
+  'A': '1010',
+  'B': '1011',
+  'C': '1100',
+  'D': '1101',
+  'E': '1110',
+  'F': '1111'
+}
+
 export function inverterOrdemDosNumeros(numero: string): string {
   let numeroInvertido = '';
   for(let index = numero.length - 1; index >= 0; index--){
@@ -56,6 +75,16 @@ export function converterAlgarismoOctalParaBinario(digitoOctal: string) {
   return valorBinario;
 }
 
+export function converterAlgarismoHexadecimalParaBinario(digitoHexadecimal: string) {
+  let valorBinario = mapeamentoHexadecimalParaBinario[digitoHexadecimal.toUpperCase()];
+
+  if(!valorBinario) {
+    throw new Error(`O digito '${digitoHexadecimal}' não é um dígito Hexadecimal válido.`);
+  }
+
+  return valorBinario;
+}
+
 export function removerZerosAEsquerda(valor: string) {
   let valorFinal = '';
   let primeiroAlgarismoEncontrado = false;
@@ -63,12 +92,10 @@ export function removerZerosAEsquerda(valor: string) {
     let algarismo = valor.charAt(indice);
     if(algarismo != '0' && !primeiroAlgarismoEncontrado){
       primeiroAlgarismoEncontrado = true;
-      console.log(`Algarismo diferente de 0 e é primeiro algarismo: ${algarismo}`);
     }
 
     if(primeiroAlgarismoEncontrado){
       valorFinal = valorFinal.concat(algarismo);
-      console.log(`Algarismo: ${algarismo}`);
     }
   }
   return valorFinal;
