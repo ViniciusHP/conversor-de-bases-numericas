@@ -11,6 +11,7 @@ export class ConversorService {
   constructor() {
     // Fazendo binding do this
     this.converterOctalParaHexadecimal = this.converterOctalParaHexadecimal.bind(this);
+    this.converterHexadecimalParaOctal = this.converterHexadecimalParaOctal.bind(this);
   }
 
   converterBinarioParaOctal(valorBinario: string): Promise<string> {
@@ -202,6 +203,11 @@ export class ConversorService {
 
       resolve(removerZerosAEsquerda(valorBinario));
     });
+  }
+
+  converterHexadecimalParaOctal(valorHexadecimal: string): Promise<string> {
+    return this.converterHexadecimalParaBinario(valorHexadecimal)
+      .then((valorBinario: string) => this.converterBinarioParaOctal(valorBinario));
   }
 
   converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
