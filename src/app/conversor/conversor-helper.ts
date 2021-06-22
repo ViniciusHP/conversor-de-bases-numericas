@@ -115,6 +115,11 @@ export function converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal: stri
 }
 
 export function removerZerosAEsquerda(valor: string): string {
+
+  if(isTodosCaracteresZero(valor)) {
+    return valor;
+  }
+
   let valorFinal = '';
   let primeiroAlgarismoEncontrado = false;
   for(let indice = 0; indice < valor.length; indice++){
@@ -128,4 +133,13 @@ export function removerZerosAEsquerda(valor: string): string {
     }
   }
   return valorFinal;
+}
+
+export function isTodosCaracteresZero(valor: string) {
+  for(let algarismo of valor) {
+    if(algarismo != '0'){
+      return false;
+    }
+  }
+  return true;
 }
