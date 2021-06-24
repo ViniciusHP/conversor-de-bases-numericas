@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConversorService } from '../conversor.service';
 
 export class DadoDeCoversao {
@@ -21,20 +22,42 @@ interface FuncaoQueDevolvePromise {
 })
 export class TelaConversorComponent implements OnInit {
 
-  dadosDoFormulario = new DadoDeCoversao();
+  //dadosDoFormulario = new DadoDeCoversao();
 
-  bases = [
-    { label: 'Binária', value: 'Binária' },
-    { label: 'Octal', value: 'Octal' },
-    { label: 'Decimal', value: 'Decimal' },
-    { label: 'Hexadecimal', value: 'Hexadecimal' }
-  ];
+  tiposDeBases: Array<any>;
 
   mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
 
+  formulario: FormGroup;
+
   constructor(
-    private conversorService: ConversorService
-  ) {
+    private conversorService: ConversorService,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+
+    this.configurarTiposDeConversao();
+    this.configurarMapeamentoDeConversao();
+
+    this.formulario = this.formBuilder.group({
+      baseInicial: [null, Validators.required],
+      valorInicial: [null, Validators.required],
+      baseFinal: [null, Validators.required],
+      valorFinal: []
+    });
+  }
+
+  configurarTiposDeConversao() {
+    this.tiposDeBases = [
+      { label: 'Binária', value: 'Binária', regexp: this.conversorService.regexpBinario },
+      { label: 'Octal', value: 'Octal', regexp: this.conversorService.regexpOctal },
+      { label: 'Decimal', value: 'Decimal', regexp: this.conversorService.regexpDecimal },
+      { label: 'Hexadecimal', value: 'Hexadecimal', regexp: this.conversorService.regexpHexadecimal }
+    ];
+  }
+
+  configurarMapeamentoDeConversao() {
     this.mapeamentoTipoDeConversao = {
       'Binária-Decimal': this.conversorService.converterBinarioParaDecimal,
       'Binária-Octal': this.conversorService.converterBinarioParaOctal,
@@ -51,12 +74,9 @@ export class TelaConversorComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-
-  }
-
   converter(): void {
-    const chave = `${this.dadosDoFormulario.baseInicial}-${this.dadosDoFormulario.baseFinal}`;
+
+    const chave = `${this.formulario.get('baseInicial')?.value}-${this.formulario.get('baseFinal')?.value}`;
     const funcaoDeConversao = this.mapeamentoTipoDeConversao[chave];
 
     if(!funcaoDeConversao){
@@ -65,12 +85,12 @@ export class TelaConversorComponent implements OnInit {
 
     console.log(`Tipo de conversão ${chave}`);
 
-    if(this.dadosDoFormulario.valorInicial){
-      funcaoDeConversao(this.dadosDoFormulario.valorInicial)
-        .then((valorConvertido) => {
-          this.dadosDoFormulario.valorFinal = valorConvertido
-        });
-    }
+    funcaoDeConversao(this.formulario.get('valorInicial')?.value)
+      .then((valorConvertido) => {
+        console.log(this.formulario.value);
+        console.log(valorConvertido);
+        this.formulario.get('valorFinal')?.setValue(valorConvertido);
+      });
   }
 
 }

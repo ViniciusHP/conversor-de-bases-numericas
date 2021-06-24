@@ -8,6 +8,11 @@ import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
 })
 export class ConversorService {
 
+  public regexpBinario = /[0-1]+/g;
+  public regexpDecimal = /[0-9]+/g;
+  public regexpOctal = /[0-7]+/g;
+  public regexpHexadecimal= /[a-fA-F0-9]+/g;
+
   constructor() {
     // Fazendo binding do this
     this.converterOctalParaHexadecimal = this.converterOctalParaHexadecimal.bind(this);

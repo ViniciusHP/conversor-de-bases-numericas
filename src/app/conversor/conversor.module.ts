@@ -6,7 +6,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConversorService } from './conversor.service';
 
 
@@ -17,6 +17,7 @@ import { ConversorService } from './conversor.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
 
     InputTextModule,
     DropdownModule,
