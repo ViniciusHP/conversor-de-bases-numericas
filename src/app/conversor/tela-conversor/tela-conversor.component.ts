@@ -22,12 +22,8 @@ interface FuncaoQueDevolvePromise {
 })
 export class TelaConversorComponent implements OnInit {
 
-  //dadosDoFormulario = new DadoDeCoversao();
-
   tiposDeBases: Array<any>;
-
   mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
-
   formulario: FormGroup;
 
   constructor(
@@ -83,12 +79,8 @@ export class TelaConversorComponent implements OnInit {
       throw new Error(`Tipo de conversão inválida (${chave})`);
     }
 
-    console.log(`Tipo de conversão ${chave}`);
-
     funcaoDeConversao(this.formulario.get('valorInicial')?.value)
       .then((valorConvertido) => {
-        console.log(this.formulario.value);
-        console.log(valorConvertido);
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
       });
   }
