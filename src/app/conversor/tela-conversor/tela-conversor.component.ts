@@ -46,10 +46,10 @@ export class TelaConversorComponent implements OnInit {
 
   configurarTiposDeConversao() {
     this.tiposDeBases = [
-      { label: 'Binária', value: 'Binária', regexp: this.conversorService.regexpBinario },
-      { label: 'Octal', value: 'Octal', regexp: this.conversorService.regexpOctal },
-      { label: 'Decimal', value: 'Decimal', regexp: this.conversorService.regexpDecimal },
-      { label: 'Hexadecimal', value: 'Hexadecimal', regexp: this.conversorService.regexpHexadecimal }
+      { label: 'Binária', value: 'Binária' },
+      { label: 'Octal', value: 'Octal' },
+      { label: 'Decimal', value: 'Decimal' },
+      { label: 'Hexadecimal', value: 'Hexadecimal' }
     ];
   }
 
