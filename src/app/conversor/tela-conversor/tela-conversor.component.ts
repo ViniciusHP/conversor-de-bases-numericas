@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ConversorService } from '../conversor.service';
 
 interface FuncaoQueDevolvePromise {
@@ -14,8 +14,9 @@ interface FuncaoQueDevolvePromise {
 export class TelaConversorComponent implements OnInit {
 
   tiposDeBases: Array<any>;
-  mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
   formulario: FormGroup;
+  mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
+  mapeamentoRegexp: { [key: string] : RegExp };
 
   valorAntigoBaseInicial: string;
   valorAntigoBaseFinal: string;
@@ -29,6 +30,7 @@ export class TelaConversorComponent implements OnInit {
 
     this.configurarTiposDeConversao();
     this.configurarMapeamentoDeConversao();
+    this.configurarMapeamentoRegexp();
 
     this.formulario = this.formBuilder.group({
       baseInicial: [null, Validators.required],
@@ -64,6 +66,15 @@ export class TelaConversorComponent implements OnInit {
     };
   }
 
+  configurarMapeamentoRegexp() {
+    this.mapeamentoRegexp = {
+      'Binária': ConversorService.regexpBinario,
+      'Decimal': ConversorService.regexpDecimal,
+      'Octal': ConversorService.regexpOctal,
+      'Hexadecimal': ConversorService.regexpHexadecimal
+    }
+  }
+
   converter(): void {
 
     const chave = `${this.formulario.get('baseInicial')?.value}-${this.formulario.get('baseFinal')?.value}`;
@@ -84,6 +95,14 @@ export class TelaConversorComponent implements OnInit {
     this.desabilitarOpcaoDropdown(valor);
     this.habilitarOpcaoDropdown(this.valorAntigoBaseInicial);
     this.valorAntigoBaseInicial = valor;
+
+    const regexpCampoValorInicial = this.mapeamentoRegexp[valor];
+    this.formulario.get('valorInicial')?.setValidators(
+      [
+        Validators.required,
+        Validators.pattern(regexpCampoValorInicial)
+      ]
+    );
   }
 
   ouvinteDropdownBaseFinal(event: any){
