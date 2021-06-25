@@ -6,6 +6,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConversorService } from './conversor.service';
 
 
 @NgModule({
@@ -14,11 +16,14 @@ import { TelaConversorComponent } from './tela-conversor/tela-conversor.componen
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     InputTextModule,
     DropdownModule,
     ButtonModule
   ],
-  exports: [TelaConversorComponent]
+  exports: [TelaConversorComponent],
+  providers: [ConversorService]
 })
 export class ConversorModule { }
