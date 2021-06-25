@@ -26,6 +26,9 @@ export class TelaConversorComponent implements OnInit {
   mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
   formulario: FormGroup;
 
+  valorAntigoBaseInicial: string;
+  valorAntigoBaseFinal: string;
+
   constructor(
     private conversorService: ConversorService,
     private formBuilder: FormBuilder
@@ -46,10 +49,10 @@ export class TelaConversorComponent implements OnInit {
 
   configurarTiposDeConversao() {
     this.tiposDeBases = [
-      { label: 'Binária', value: 'Binária' },
-      { label: 'Octal', value: 'Octal' },
-      { label: 'Decimal', value: 'Decimal' },
-      { label: 'Hexadecimal', value: 'Hexadecimal' }
+      { label: 'Binária', value: 'Binária', disabled: false },
+      { label: 'Octal', value: 'Octal', disabled: false },
+      { label: 'Decimal', value: 'Decimal', disabled: false },
+      { label: 'Hexadecimal', value: 'Hexadecimal', disabled: false }
     ];
   }
 
@@ -83,6 +86,36 @@ export class TelaConversorComponent implements OnInit {
       .then((valorConvertido) => {
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
       });
+  }
+
+  ouvinteDropdownBaseInicial(event: any) {
+    const valor = event.value;
+    this.desabilitarOpcaoDropdown(valor);
+    this.habilitarOpcaoDropdown(this.valorAntigoBaseInicial);
+    this.valorAntigoBaseInicial = valor;
+  }
+
+  ouvinteDropdownBaseFinal(event: any){
+    const valor = event.value;
+    this.desabilitarOpcaoDropdown(valor);
+    this.habilitarOpcaoDropdown(this.valorAntigoBaseFinal);
+    this.valorAntigoBaseFinal = valor;
+  }
+
+  desabilitarOpcaoDropdown(valor: string){
+    this.tiposDeBases.forEach((obj) => {
+      if(obj.value === valor){
+        obj.disabled = true;
+      }
+    })
+  }
+
+  habilitarOpcaoDropdown(valor: string){
+    this.tiposDeBases.forEach((obj) => {
+      if(obj.value === valor){
+        obj.disabled = false;
+      }
+    })
   }
 
 }

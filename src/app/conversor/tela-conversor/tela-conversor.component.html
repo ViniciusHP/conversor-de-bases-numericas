@@ -8,7 +8,7 @@
         <div class="p-col-12 p-fluid p-field">
           <label>De:</label>
           <p-dropdown [options]="tiposDeBases" placeholder="Selecione a base inicial"
-            formControlName="baseInicial"></p-dropdown>
+            formControlName="baseInicial" (onChange)="ouvinteDropdownBaseInicial($event)"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
           <label for="valorInicial">Valor na base {{ formulario.get('baseInicial')?.value || 'inicial'}}:</label>
@@ -24,7 +24,7 @@
         <div class="p-col-12 p-fluid p-field">
           <label>Para:</label>
           <p-dropdown [options]="tiposDeBases" placeholder="Selecione a base desejada"
-            formControlName="baseFinal"></p-dropdown>
+            formControlName="baseFinal" (onChange)="ouvinteDropdownBaseFinal($event)"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
           <label for="valorFinal">Valor na base {{ formulario.get('baseFinal')?.value || 'desejada'}}:</label>
