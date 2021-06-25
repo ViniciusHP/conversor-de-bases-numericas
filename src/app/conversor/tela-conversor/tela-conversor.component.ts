@@ -2,15 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConversorService } from '../conversor.service';
 
-export class DadoDeCoversao {
-  constructor(
-    public baseInicial?: string,
-    public baseFinal?: string,
-    public valorInicial?: string,
-    public valorFinal?: string
-  ) {}
-}
-
 interface FuncaoQueDevolvePromise {
   (valor: string): Promise<string>;
 }
