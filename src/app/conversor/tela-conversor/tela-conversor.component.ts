@@ -103,6 +103,7 @@ export class TelaConversorComponent implements OnInit {
         Validators.pattern(regexpCampoValorInicial)
       ]
     );
+    this.formulario.get('valorInicial')?.updateValueAndValidity();
   }
 
   ouvinteDropdownBaseFinal(event: any){
