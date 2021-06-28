@@ -27,17 +27,10 @@ export class TelaConversorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.configurarTiposDeConversao();
     this.configurarMapeamentoDeConversao();
     this.configurarMapeamentoRegexp();
-
-    this.formulario = this.formBuilder.group({
-      baseInicial: [null, Validators.required],
-      valorInicial: [null, Validators.required],
-      baseFinal: [null, Validators.required],
-      valorFinal: []
-    });
+    this.configurarFormulario();
   }
 
   configurarTiposDeConversao() {
@@ -73,6 +66,15 @@ export class TelaConversorComponent implements OnInit {
       'Octal': ConversorService.regexpOctal,
       'Hexadecimal': ConversorService.regexpHexadecimal
     }
+  }
+
+  configurarFormulario() {
+    this.formulario = this.formBuilder.group({
+      baseInicial: [null, Validators.required],
+      valorInicial: [null, Validators.required],
+      baseFinal: [null, Validators.required],
+      valorFinal: []
+    });
   }
 
   converter(): void {
