@@ -16,7 +16,7 @@ export class TelaConversorComponent implements OnInit {
   tiposDeBases: Array<any>;
   formulario: FormGroup;
   mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
-  mapeamentoRegexp: { [key: string] : RegExp };
+  mapeamentoRegexp: { [key: string] : string };
 
   valorAntigoBaseInicial: string;
   valorAntigoBaseFinal: string;

@@ -14,20 +14,20 @@ export class ConversorService {
     this.converterHexadecimalParaOctal = this.converterHexadecimalParaOctal.bind(this);
   }
 
-  static get regexpBinario(): RegExp {
-    return /[0-1]+/g;
+  static get regexpBinario(): string {
+    return '[0-1]+';
   }
 
-  static get regexpDecimal(): RegExp {
-    return /[0-9]+/g;
+  static get regexpDecimal(): string {
+    return '[0-9]+';
   }
 
-  static get regexpOctal(): RegExp {
-    return  /[0-7]+/g;
+  static get regexpOctal(): string {
+    return '[0-7]+';
   }
 
-  static get regexpHexadecimal(): RegExp {
-    return /[a-fA-F0-9]+/g;
+  static get regexpHexadecimal(): string {
+    return '[a-fA-F0-9]+';
   }
 
   converterBinarioParaOctal(valorBinario: string): Promise<string> {

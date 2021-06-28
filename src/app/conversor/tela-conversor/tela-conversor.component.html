@@ -15,7 +15,7 @@
           <input pInputText type="text" id="valorInicial"
             formControlName="valorInicial">
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.touched" severity="error" text="Informe um valor"></p-message>
-          <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.touched" severity="error" text="O campo deve conter apenas dígitos da base {{ formulario.get('baseInicial')?.value }}"></p-message>
+          <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.touched" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>
         </div>
       </div>
       <div class="p-col-1 p-fluid p-field p-as-center">
