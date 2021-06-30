@@ -135,11 +135,15 @@ export function removerZerosAEsquerda(valor: string): string {
   return valorFinal;
 }
 
-export function isTodosCaracteresZero(valor: string) {
+export function isTodosCaracteresZero(valor: string): boolean {
   for(let algarismo of valor) {
     if(algarismo != '0'){
       return false;
     }
   }
   return true;
+}
+
+export function removeSinalPositivo(valor: string): string {
+  return valor.replace(/[+]+/g, '');
 }

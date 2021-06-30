@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
   converterAlgarismoOctalParaBinario, converterAlgarismoHexadecimalParaBinario,
-  converterAlgarismoHexadecimalParaDecimal, removerZerosAEsquerda } from './conversor-helper'
+  converterAlgarismoHexadecimalParaDecimal, removerZerosAEsquerda,
+  removeSinalPositivo } from './conversor-helper'
 
 @Injectable({
   providedIn: 'root'
@@ -10,98 +11,113 @@ export class ConversorService {
 
   constructor() {
     // Fazendo binding do this
+    this.converterBinarioParaDecimal = this.converterBinarioParaDecimal.bind(this);
+    this.converterBinarioParaOctal = this.converterBinarioParaOctal.bind(this);
+    this.converterBinarioParaHexadecimal = this.converterBinarioParaHexadecimal.bind(this);
+
+    this.converterOctalParaBinario = this.converterOctalParaBinario.bind(this);
+    this.converterOctalParaDecimal = this.converterOctalParaDecimal.bind(this);
     this.converterOctalParaHexadecimal = this.converterOctalParaHexadecimal.bind(this);
+
+    this.converterDecimalParaBinario = this.converterDecimalParaBinario.bind(this);
+    this.converterDecimalParaOctal = this.converterDecimalParaOctal.bind(this);
+    this.converterDecimalParaHexadecimal = this.converterDecimalParaHexadecimal.bind(this);
+
+    this.converterHexadecimalParaBinario = this.converterHexadecimalParaBinario.bind(this);
+    this.converterHexadecimalParaDecimal = this.converterHexadecimalParaDecimal.bind(this);
     this.converterHexadecimalParaOctal = this.converterHexadecimalParaOctal.bind(this);
   }
 
   static get regexpBinario(): string {
-    return '[0-1]+';
+    return '^[+]?[0-1]+';
   }
 
   static get regexpDecimal(): string {
-    return '[0-9]+';
+    return '^[+]?[0-9]+';
   }
 
   static get regexpOctal(): string {
-    return '[0-7]+';
+    return '^[+]?[0-7]+';
   }
 
   static get regexpHexadecimal(): string {
-    return '[a-fA-F0-9]+';
+    return '^[+]?[a-fA-F0-9]+';
   }
 
   converterBinarioParaOctal(valorBinario: string): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return this.remocaoDeSinais(valorBinario)
+      .then((valorBinarioSemSinal: string) => {
+        let expoente = 0;
+        const indiceFinal = valorBinarioSemSinal.length - 1;
+        let soma = 0;
 
-      let expoente = 0;
-      const indiceFinal = valorBinario.length - 1;
-      let soma = 0;
+        let valorOctalInvertido = '';
 
-      let valorOctalInvertido = '';
+        for(let indice = indiceFinal; indice >= 0; indice--) {
+          soma += (Number(valorBinarioSemSinal.charAt(indice)) * Math.pow(2, expoente));
+          expoente++;
 
-      for(let indice = indiceFinal; indice >= 0; indice--) {
-        soma += (Number(valorBinario.charAt(indice)) * Math.pow(2, expoente));
-        expoente++;
-
-        if(expoente == 3 || indice == 0){
-          valorOctalInvertido = valorOctalInvertido.concat(soma.toString());
-          expoente = 0;
-          soma = 0;
+          if(expoente == 3 || indice == 0){
+            valorOctalInvertido = valorOctalInvertido.concat(soma.toString());
+            expoente = 0;
+            soma = 0;
+          }
         }
-      }
 
-      resolve(inverterOrdemDosNumeros(valorOctalInvertido));
-    });
+        return inverterOrdemDosNumeros(valorOctalInvertido);
+      });
   }
 
   converterBinarioParaDecimal(valorBinario: string): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return this.remocaoDeSinais(valorBinario)
+      .then((valorBinarioSemsinal: string) => {
         const base = 2;
         let expoente = 0;
-        const indiceFinal = valorBinario.length - 1;
+        const indiceFinal = valorBinarioSemsinal.length - 1;
         let soma = 0;
 
         for(let indice = indiceFinal; indice >= 0; indice--) {
-          const algarismo = Number(valorBinario.charAt(indice));
+          const algarismo = Number(valorBinarioSemsinal.charAt(indice));
           soma += Math.pow(base, expoente) * algarismo;
           expoente++;
         }
 
-        resolve(soma.toString());
-    });
+        return soma.toString();
+      });
   }
 
   converterBinarioParaHexadecimal(valorBinario: string): Promise<string> {
-    return new Promise((resolve, reject) => {
+    return this.remocaoDeSinais(valorBinario)
+      .then((valorBinarioSemSinal: string) => {
+        let expoente = 0;
+        const indiceFinal = valorBinarioSemSinal.length - 1;
+        let soma = 0;
 
-      let expoente = 0;
-      const indiceFinal = valorBinario.length - 1;
-      let soma = 0;
+        let valorHexadecimalInvertido = '';
 
-      let valorHexadecimalInvertido = '';
+        for(let indice = indiceFinal; indice >= 0; indice--) {
+          soma += (Number(valorBinarioSemSinal.charAt(indice)) * Math.pow(2, expoente));
+          expoente++;
 
-      for(let indice = indiceFinal; indice >= 0; indice--) {
-        soma += (Number(valorBinario.charAt(indice)) * Math.pow(2, expoente));
-        expoente++;
-
-        if(expoente == 4 || indice == 0){
-          const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
-          valorHexadecimalInvertido = valorHexadecimalInvertido.concat(algarismoHexadecimal);
-          expoente = 0;
-          soma = 0;
+          if(expoente == 4 || indice == 0){
+            const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
+            valorHexadecimalInvertido = valorHexadecimalInvertido.concat(algarismoHexadecimal);
+            expoente = 0;
+            soma = 0;
+          }
         }
-      }
 
-      resolve(inverterOrdemDosNumeros(valorHexadecimalInvertido));
-    })
+        return inverterOrdemDosNumeros(valorHexadecimalInvertido);
+      })
   }
 
   converterDecimalParaBinario(valorDecimal: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        let valor = Number(valorDecimal);
+    return this.remocaoDeSinais(valorDecimal)
+      .then((valorDecimalSemSinal: string) => {
+        let valor = Number(valorDecimalSemSinal);
         const divisor = 2;
         if(valor < 2){
-          resolve(valor.toString());
+          return valor.toString();
         }
 
         let valorBinarioInvertido = '';
@@ -118,16 +134,17 @@ export class ConversorService {
           valor = quociente;
         }
 
-        resolve(inverterOrdemDosNumeros(valorBinarioInvertido));
-    });
+        return inverterOrdemDosNumeros(valorBinarioInvertido);
+      });
   }
 
   converterDecimalParaOctal(valorDecimal: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        let valor = Number(valorDecimal);
+    return this.remocaoDeSinais(valorDecimal)
+      .then((valorDecimalSemSinal: string) => {
+        let valor = Number(valorDecimalSemSinal);
         const divisor = 8;
         if(valor < 8){
-          resolve(valor.toString());
+          return valor.toString();
         }
 
         let valorOctalInvertido = '';
@@ -144,16 +161,17 @@ export class ConversorService {
           valor = quociente;
         }
 
-        resolve(inverterOrdemDosNumeros(valorOctalInvertido));
-    });
+        return inverterOrdemDosNumeros(valorOctalInvertido);
+      });
   }
 
   converterDecimalParaHexadecimal(valorDecimal: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        let valor = Number(valorDecimal);
+    return this.remocaoDeSinais(valorDecimal)
+      .then((valorDecimalSemSinal: string) => {
+        let valor = Number(valorDecimalSemSinal);
         const divisor = 16;
         if(valor < 16){
-          resolve(converterAlgarismoDecimalParaHexadecimal(valor.toString()));
+          return converterAlgarismoDecimalParaHexadecimal(valor.toString());
         }
 
         let valorHexadecimalInvertido = '';
@@ -170,36 +188,38 @@ export class ConversorService {
           valor = quociente;
         }
 
-        resolve(inverterOrdemDosNumeros(valorHexadecimalInvertido));
-    });
+        return inverterOrdemDosNumeros(valorHexadecimalInvertido);
+      });
   }
 
   converterOctalParaBinario(valorOctal: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      let valorBinario = '';
-      const indiceFinal = valorOctal.length - 1;
-      for(let indice = indiceFinal; indice >= 0; indice--){
-        const algarismo = valorOctal.charAt(indice);
-        const binario = converterAlgarismoOctalParaBinario(algarismo);
-        valorBinario = binario.concat(valorBinario);
-      }
-      resolve(removerZerosAEsquerda(valorBinario));
-    });
+    return this.remocaoDeSinais(valorOctal)
+      .then((valorOctalSemSinal: string) => {
+        let valorBinario = '';
+        const indiceFinal = valorOctalSemSinal.length - 1;
+        for(let indice = indiceFinal; indice >= 0; indice--){
+          const algarismo = valorOctalSemSinal.charAt(indice);
+          const binario = converterAlgarismoOctalParaBinario(algarismo);
+          valorBinario = binario.concat(valorBinario);
+        }
+        return removerZerosAEsquerda(valorBinario);
+      });
   }
 
   converterOctalParaDecimal(valorOctal: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const indiceFinal = valorOctal.length - 1;
-      let expoente = 0;
-      let soma = 0;
-      for(let indice = indiceFinal; indice >= 0; indice--){
-        let algarismo = Number(valorOctal.charAt(indice));
-        soma += (Math.pow(8, expoente) * algarismo);
-        expoente++;
-      }
+    return this.remocaoDeSinais(valorOctal)
+      .then((valorOctalSemSinal: string) => {
+        const indiceFinal = valorOctalSemSinal.length - 1;
+        let expoente = 0;
+        let soma = 0;
+        for(let indice = indiceFinal; indice >= 0; indice--){
+          let algarismo = Number(valorOctalSemSinal.charAt(indice));
+          soma += (Math.pow(8, expoente) * algarismo);
+          expoente++;
+        }
 
-      resolve(soma.toString());
-    });
+        return soma.toString();
+      });
   }
 
   converterOctalParaHexadecimal(valorOctal: string): Promise<string> {
@@ -208,17 +228,18 @@ export class ConversorService {
   }
 
   converterHexadecimalParaBinario(valorHexadecimal: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const indiceFinal = valorHexadecimal.length - 1;
-      let valorBinario = '';
-      for(let indice = indiceFinal; indice >= 0; indice--) {
-        let algarismo = valorHexadecimal.charAt(indice);
-        let binario = converterAlgarismoHexadecimalParaBinario(algarismo);
-        valorBinario = binario.concat(valorBinario);
-      }
+    return this.remocaoDeSinais(valorHexadecimal)
+      .then((valorHexadecimalSemSinal: string) => {
+        const indiceFinal = valorHexadecimalSemSinal.length - 1;
+        let valorBinario = '';
+        for(let indice = indiceFinal; indice >= 0; indice--) {
+          let algarismo = valorHexadecimalSemSinal.charAt(indice);
+          let binario = converterAlgarismoHexadecimalParaBinario(algarismo);
+          valorBinario = binario.concat(valorBinario);
+        }
 
-      resolve(removerZerosAEsquerda(valorBinario));
-    });
+        return removerZerosAEsquerda(valorBinario);
+      });
   }
 
   converterHexadecimalParaOctal(valorHexadecimal: string): Promise<string> {
@@ -227,17 +248,22 @@ export class ConversorService {
   }
 
   converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
-    return new Promise((resolve, reject) => {
-      const indiceFinal = valorHexadecimal.length - 1;
-      let expoente = 0;
-      let soma = 0;
-      for(let indice = indiceFinal; indice >= 0; indice--) {
-        const algarismoHexadecimal = valorHexadecimal.charAt(indice);
-        const algarismoDecimal = Number(converterAlgarismoHexadecimalParaDecimal(algarismoHexadecimal));
-        soma += (Math.pow(16, expoente) * algarismoDecimal);
-        expoente++;
-      }
-      resolve(soma.toString());
-    });
+    return this.remocaoDeSinais(valorHexadecimal)
+      .then((valorHexadecimalSemSinal: string) => {
+        const indiceFinal = valorHexadecimalSemSinal.length - 1;
+        let expoente = 0;
+        let soma = 0;
+        for(let indice = indiceFinal; indice >= 0; indice--) {
+          const algarismoHexadecimal = valorHexadecimalSemSinal.charAt(indice);
+          const algarismoDecimal = Number(converterAlgarismoHexadecimalParaDecimal(algarismoHexadecimal));
+          soma += (Math.pow(16, expoente) * algarismoDecimal);
+          expoente++;
+        }
+        return soma.toString();
+      });
+  }
+
+  private remocaoDeSinais(valor: string): Promise<string> {
+    return Promise.resolve(removeSinalPositivo(valor));
   }
 }
