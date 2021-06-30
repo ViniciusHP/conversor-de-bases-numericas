@@ -9,3 +9,15 @@ body .p-component,
 body .p-inputtext{
   font-family: 'Poppins', sans-serif;
 }
+
+@keyframes btn-spinner-color {
+  100%,
+  0% {
+      stroke: #fff;
+  }
+}
+
+.btn-spinner .p-progress-spinner-circle {
+  animation: p-progress-spinner-dash 1.5s ease-in-out infinite,
+  btn-spinner-color 6s ease-in-out infinite;
+}

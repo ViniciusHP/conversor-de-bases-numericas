@@ -14,8 +14,8 @@
           <label for="valorInicial">Valor na base {{ formulario.get('baseInicial')?.value || 'inicial'}}:</label>
           <input pInputText type="text" id="valorInicial"
             formControlName="valorInicial">
-          <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.touched" severity="error" text="Informe um valor"></p-message>
-          <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.touched" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>
+          <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.dirty" severity="error" text="Informe um valor"></p-message>
+          <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.dirty" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>
         </div>
       </div>
       <div class="p-col-1 p-fluid p-field p-as-center">
@@ -35,8 +35,9 @@
         </div>
       </div>
       <div class="p-col-12 p-d-flex p-jc-center">
-        <button pButton type="submit" label="Converter"
-          [disabled]="formulario.invalid"></button>
+        <button pButton type="submit" [label]="convertendo ? 'Convertendo' : 'Converter'"
+          [disabled]="formulario.invalid || convertendo">
+        </button>
       </div>
     </div>
   </form>

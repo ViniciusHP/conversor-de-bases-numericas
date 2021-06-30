@@ -15,6 +15,8 @@ export class TelaConversorComponent implements OnInit {
 
   tiposDeBases: Array<any>;
   formulario: FormGroup;
+  convertendo: boolean;
+
   mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
   mapeamentoRegexp: { [key: string] : string };
 
@@ -78,7 +80,7 @@ export class TelaConversorComponent implements OnInit {
   }
 
   converter(): void {
-
+    this.convertendo = !this.convertendo;
     const chave = `${this.formulario.get('baseInicial')?.value}-${this.formulario.get('baseFinal')?.value}`;
     const funcaoDeConversao = this.mapeamentoTipoDeConversao[chave];
 
@@ -86,9 +88,13 @@ export class TelaConversorComponent implements OnInit {
       throw new Error(`Tipo de conversão inválida (${chave})`);
     }
 
+    this.convertendo = true;
     funcaoDeConversao(this.formulario.get('valorInicial')?.value)
       .then((valorConvertido) => {
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
+      })
+      .finally(() => {
+        this.convertendo = false;
       });
   }
 
