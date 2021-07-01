@@ -18,7 +18,7 @@ export class TelaConversorComponent implements OnInit {
   convertendo: boolean;
 
   mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
-  mapeamentoRegexp: { [key: string] : string };
+  mapeamentoBasePattern: { [key: string] : string };
 
   valorAntigoBaseInicial: string;
   valorAntigoBaseFinal: string;
@@ -31,7 +31,7 @@ export class TelaConversorComponent implements OnInit {
   ngOnInit(): void {
     this.configurarTiposDeConversao();
     this.configurarMapeamentoDeConversao();
-    this.configurarMapeamentoRegexp();
+    this.configurarMapeamentoBasePattern();
     this.configurarFormulario();
   }
 
@@ -61,12 +61,12 @@ export class TelaConversorComponent implements OnInit {
     };
   }
 
-  configurarMapeamentoRegexp() {
-    this.mapeamentoRegexp = {
-      'Binária': ConversorService.regexpBinario,
-      'Decimal': ConversorService.regexpDecimal,
-      'Octal': ConversorService.regexpOctal,
-      'Hexadecimal': ConversorService.regexpHexadecimal
+  configurarMapeamentoBasePattern() {
+    this.mapeamentoBasePattern = {
+      'Binária': this.conversorService.patternBinario,
+      'Decimal': this.conversorService.patternDecimal,
+      'Octal': this.conversorService.patternOctal,
+      'Hexadecimal': this.conversorService.patternHexadecimal
     }
   }
 
@@ -104,7 +104,7 @@ export class TelaConversorComponent implements OnInit {
     this.habilitarOpcaoDropdown(this.valorAntigoBaseInicial);
     this.valorAntigoBaseInicial = valor;
 
-    const regexpCampoValorInicial = this.mapeamentoRegexp[valor];
+    const regexpCampoValorInicial = this.mapeamentoBasePattern[valor];
     this.formulario.get('valorInicial')?.setValidators(
       [
         Validators.required,

@@ -28,19 +28,19 @@ export class ConversorService {
     this.converterHexadecimalParaOctal = this.converterHexadecimalParaOctal.bind(this);
   }
 
-  static get regexpBinario(): string {
+  get patternBinario(): string {
     return '^[+]?[0-1]+';
   }
 
-  static get regexpDecimal(): string {
+  get patternDecimal(): string {
     return '^[+]?[0-9]+';
   }
 
-  static get regexpOctal(): string {
+  get patternOctal(): string {
     return '^[+]?[0-7]+';
   }
 
-  static get regexpHexadecimal(): string {
+  get patternHexadecimal(): string {
     return '^[+]?[a-fA-F0-9]+';
   }
 
@@ -70,14 +70,14 @@ export class ConversorService {
 
   converterBinarioParaDecimal(valorBinario: string): Promise<string> {
     return this.remocaoDeSinais(valorBinario)
-      .then((valorBinarioSemsinal: string) => {
+      .then((valorBinarioSemSinal: string) => {
         const base = 2;
         let expoente = 0;
-        const indiceFinal = valorBinarioSemsinal.length - 1;
+        const indiceFinal = valorBinarioSemSinal.length - 1;
         let soma = 0;
 
         for(let indice = indiceFinal; indice >= 0; indice--) {
-          const algarismo = Number(valorBinarioSemsinal.charAt(indice));
+          const algarismo = Number(valorBinarioSemSinal.charAt(indice));
           soma += Math.pow(base, expoente) * algarismo;
           expoente++;
         }
