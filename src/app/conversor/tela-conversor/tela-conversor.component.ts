@@ -93,6 +93,9 @@ export class TelaConversorComponent implements OnInit {
       .then((valorConvertido) => {
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
       })
+      .catch(() => {
+        this.formulario.get('valorFinal')?.setValue('');
+      })
       .finally(() => {
         this.convertendo = false;
       });
