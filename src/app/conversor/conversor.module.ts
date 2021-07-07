@@ -11,12 +11,14 @@ import {MessageModule} from 'primeng/message';
 import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
 import { ConversorService } from './conversor.service';
 import { FormularioConversorComponent } from './formulario-conversor/formulario-conversor.component';
+import { HistoricoConversorComponent } from './historico-conversor/historico-conversor.component';
 
 
 @NgModule({
   declarations: [
     TelaConversorComponent,
-    FormularioConversorComponent
+    FormularioConversorComponent,
+    HistoricoConversorComponent
   ],
   imports: [
     CommonModule,

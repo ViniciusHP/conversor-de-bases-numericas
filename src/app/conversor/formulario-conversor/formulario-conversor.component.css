@@ -22,19 +22,6 @@ label {
   display: none;
 }
 
-.container {
-  max-width: 900px;
-  margin: 20px auto;
-}
-
-.card {
-  background: var(--surface-a);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
-  padding-bottom: 20px;
-}
-
 @keyframes animacao-flecha-esquerda-direita {
   from{
     transform: translateX(-5px);
