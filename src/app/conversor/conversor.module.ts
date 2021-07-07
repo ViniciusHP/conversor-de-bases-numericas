@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -8,13 +9,14 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 
 import { TelaConversorComponent } from './tela-conversor/tela-conversor.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConversorService } from './conversor.service';
+import { FormularioConversorComponent } from './formulario-conversor/formulario-conversor.component';
 
 
 @NgModule({
   declarations: [
-    TelaConversorComponent
+    TelaConversorComponent,
+    FormularioConversorComponent
   ],
   imports: [
     CommonModule,
