@@ -3,6 +3,15 @@ h2 {
   font-weight: 300;
 }
 
+.cabecalho-historico {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .conteudo-historico {
   max-height: 500px;
   overflow-y: scroll;
@@ -41,5 +50,10 @@ h2 {
   }
   .container-informacao {
     text-align: center;
+  }
+  .cabecalho-historico {
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1.5rem;
   }
 }
