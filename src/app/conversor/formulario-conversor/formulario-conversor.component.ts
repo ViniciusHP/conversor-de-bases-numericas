@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConversorService } from '../conversor.service';
+import { HistoricoService } from '../historico.service';
 
 interface FuncaoQueDevolvePromise {
   (valor: string): Promise<string>;
@@ -24,7 +25,8 @@ export class FormularioConversorComponent implements OnInit {
 
   constructor(
     private conversorService: ConversorService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private historicoService: HistoricoService
   ) {}
 
   ngOnInit(): void {
@@ -93,6 +95,7 @@ export class FormularioConversorComponent implements OnInit {
     funcaoDeConversao(this.formulario.get('valorInicial')?.value)
       .then((valorConvertido) => {
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
+        this.historicoService.adicionarAoHistorico(this.formulario.value);
       })
       .catch(() => {
         this.formulario.get('valorFinal')?.setValue('');

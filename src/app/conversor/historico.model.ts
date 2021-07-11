@@ -1,4 +1,4 @@
-export interface InformacaoDeConversao {
+export interface Historico {
   baseInicial: string;
   valorInicial: string;
   baseFinal: string;
