@@ -12,7 +12,7 @@
         </div>
         <div class="p-col-12 p-fluid p-field">
           <label for="valorInicial">Valor na base {{ formulario.get('baseInicial')?.value || 'inicial'}}:</label>
-          <input pInputText type="text" id="valorInicial"
+          <input pInputText class="fonte-numero" type="text" id="valorInicial"
             formControlName="valorInicial">
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.dirty" severity="error" text="Informe um valor"></p-message>
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.dirty" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>
@@ -30,7 +30,7 @@
         </div>
         <div class="p-col-12 p-fluid p-field">
           <label for="valorFinal">Valor na base {{ formulario.get('baseFinal')?.value || 'desejada'}}:</label>
-          <input pInputText type="text" id="valorFinal"
+          <input pInputText class="fonte-numero" type="text" id="valorFinal"
             formControlName="valorFinal" >
         </div>
       </div>

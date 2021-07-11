@@ -14,7 +14,12 @@ body {
 body,
 body .p-component,
 body .p-inputtext{
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body .p-inputtext.fonte-numero {
+  font-size: 1.2rem;
+  line-height: 1.57rem;
 }
 
 .container {
@@ -30,6 +35,7 @@ body .p-inputtext{
   padding-bottom: 20px;
 }
 
+body .p-inputtext.fonte-numero,
 .fonte-numero {
   font-family: 'Ubuntu Mono', monospace;
 }
