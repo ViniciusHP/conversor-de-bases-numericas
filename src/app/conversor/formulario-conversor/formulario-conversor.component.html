@@ -4,7 +4,7 @@
       <div class="p-col-12 p-text-center">
         <h1>Conversor de Bases Numéricas</h1>
       </div>
-      <div class="p-md-5 p-fluid p-grid">
+      <div class="p-md-5 p-grid">
         <div class="p-col-12 p-fluid p-field">
           <label>De:</label>
           <p-dropdown [options]="tiposDeBases" placeholder="Selecione a base inicial"
@@ -18,11 +18,11 @@
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.dirty" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>
         </div>
       </div>
-      <div class="p-col-1 p-fluid p-field p-as-center">
+      <div class="p-col-1 p-field p-as-center">
         <i class="pi pi-arrow-right icone-flecha"></i>
         <i class="pi pi-arrow-down icone-flecha"></i>
       </div>
-      <div class="p-md-5 p-fluid p-grid">
+      <div class="p-md-5 p-grid">
         <div class="p-col-12 p-fluid p-field">
           <label>Para:</label>
           <p-dropdown [options]="tiposDeBases" placeholder="Selecione a base desejada"
