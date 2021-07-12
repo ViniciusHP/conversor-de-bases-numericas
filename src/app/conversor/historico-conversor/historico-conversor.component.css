@@ -17,40 +17,7 @@ h2 {
   overflow-y: scroll;
 }
 
-.card-historico {
-  margin: 0;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .15),
-      1px 1px 5px 1px rgba(0, 0, 0, .1);
-  margin-bottom: 10px;
-}
-
-.container-informacao {
-  margin: 0;
-}
-
-.container-inicial,
-.container-final {
-  padding: 0 10px 0 10px;
-}
-
-.numero {
-  word-wrap: break-word;
-  font-size: 1.18rem;
-}
-
-.icone-flecha {
-  transition: all 0.3s ease-in-out;
-}
-
 @media screen and (max-width: 575px) {
-  .icone-flecha {
-    transform: rotate(90deg);
-  }
-  .container-informacao {
-    text-align: center;
-  }
   .cabecalho-historico {
     flex-direction: column;
     justify-content: center;

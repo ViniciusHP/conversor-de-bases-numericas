@@ -9,29 +9,9 @@
           (click)="limparHistorico()"></button>
       </div>
     </div>
-    <div class="conteudo-historico p-col-12 p-grid p-jc-center">
-      <div class="card-historico p-col-12 p-md-11 p-grid p-jc-center p-jc-sm-between p-ai-center"
-        *ngFor="let historico of dadosHistorico; let i = index">
-        <div class="container-informacao p-col-9 p-grid p-flex-wrap">
-          <div class="container-inicial p-col-12 p-sm-5">
-            <div>{{historico.baseInicial}}</div>
-            <div class="fonte-numero numero">{{historico.valorInicial}}</div>
-          </div>
-          <div class="p-as-center p-col-12 p-sm-2 p-text-center">
-            <i class="pi pi-arrow-right icone-flecha"></i>
-          </div>
-          <div class="container-final p-col-12 p-sm-5">
-            <div>{{historico.baseFinal}}</div>
-            <div class="fonte-numero numero">{{historico.valorFinal}}</div>
-          </div>
-        </div>
-        <div class="p-col-3 p-sm-2 p-md-1 p-grid p-jc-center">
-          <button pButton pRipple type="button"
-            class="p-button-rounded p-button-danger" icon="pi pi-times"
-            pTooltip="Remover" tooltipPosition="top"
-            (click)="removerHistorico(i)"></button>
-        </div>
-      </div>
+    <div class="conteudo-historico p-col-12">
+      <app-card-historico *ngFor="let historico of dadosHistorico; let i = index"
+        [historico]="historico" (onBotaoFechar)="removerHistorico(i)"></app-card-historico>
     </div>
   </div>
 </div>
