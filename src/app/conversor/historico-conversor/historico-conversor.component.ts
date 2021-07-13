@@ -34,6 +34,8 @@ export class HistoricoConversorComponent implements OnInit {
       },
       acceptLabel: 'Sim',
       rejectLabel: 'Não',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-danger p-button-text'
     });
   }
 
