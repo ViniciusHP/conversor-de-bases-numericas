@@ -7,14 +7,18 @@ import { Historico } from './historico.model';
 export class HistoricoService {
   private historicoConversao: Historico[] = [];
 
-  constructor() {}
+  constructor() {
+    this.lerHistoricoArmazenadoLocalmente();
+  }
 
-  adicionarAoHistorico(historico: Historico): void{
+  adicionarAoHistorico(historico: Historico): void {
     this.historicoConversao.unshift(historico);
+    this.armazenarHistoricoLocalmente()
   }
 
   removerDoHistorico(indice: number): void {
     this.historicoConversao.splice(indice, 1);
+    this.armazenarHistoricoLocalmente()
   }
 
   obterHistorico(): Historico[] {
@@ -22,6 +26,21 @@ export class HistoricoService {
   }
 
   limparTodoHistorico(): void {
-    this.historicoConversao = []
+    this.historicoConversao = [];
+    this.armazenarHistoricoLocalmente()
+  }
+
+  private armazenarHistoricoLocalmente(): void {
+    localStorage.setItem(
+      'historicoConversao',
+      JSON.stringify(this.historicoConversao)
+      );
+  }
+
+  private lerHistoricoArmazenadoLocalmente(): void {
+    const historicoString = localStorage.getItem('historicoConversao');
+    if (historicoString) {
+      this.historicoConversao = JSON.parse(historicoString);
+    }
   }
 }
