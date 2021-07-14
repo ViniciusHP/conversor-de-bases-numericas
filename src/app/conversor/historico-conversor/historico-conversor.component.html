@@ -6,7 +6,7 @@
       </div>
       <div>
         <button pButton class="p-button-danger" icon="pi pi-trash" label="Limpar todo histórico"
-          (click)="confirmacaoLimparHistorico($event)"></button>
+          (click)="confirmacaoLimparHistorico($event)" [disabled]="dadosHistorico.length === 0"></button>
       </div>
     </div>
     <div class="conteudo-historico p-col-12">
