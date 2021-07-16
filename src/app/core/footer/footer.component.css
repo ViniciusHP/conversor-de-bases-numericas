@@ -1,0 +1,22 @@
+footer {
+  width: 100%;
+  padding: 15px 25px;
+  background: var(--surface-c);
+  box-shadow: -1px 0 5px 2px rgba(0, 0, 0, 0.1),
+  -2px 0 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  margin: 0;
+  text-align: right;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: filter 0.3s ease-in-out;
+}
+
+a:hover {
+  filter: brightness(120%);
+}

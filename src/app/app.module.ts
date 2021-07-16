@@ -7,6 +7,7 @@ import {ConfirmationService} from 'primeng/api';
 
 import { AppComponent } from './app.component';
 import { ConversorModule } from './conversor/conversor.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ConversorModule } from './conversor/conversor.module';
 
     ConfirmPopupModule,
 
-    ConversorModule
+    ConversorModule,
+    CoreModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]
