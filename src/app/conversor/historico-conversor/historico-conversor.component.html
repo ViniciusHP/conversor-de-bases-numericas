@@ -1,0 +1,17 @@
+<div class="container card">
+  <div class="p-grid p-jc-center p-ai-center">
+    <div class="cabecalho-historico p-col-12">
+      <div>
+        <h2>Histórico</h2>
+      </div>
+      <div>
+        <button pButton class="p-button-danger" icon="pi pi-trash" label="Limpar todo histórico"
+          (click)="confirmacaoLimparHistorico($event)" [disabled]="dadosHistorico.length === 0"></button>
+      </div>
+    </div>
+    <div class="conteudo-historico p-col-12">
+      <app-card-historico *ngFor="let historico of dadosHistorico; let i = index"
+        [historico]="historico" (onBotaoFechar)="removerHistorico(i)"></app-card-historico>
+    </div>
+  </div>
+</div>

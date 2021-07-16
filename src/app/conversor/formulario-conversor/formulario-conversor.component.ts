@@ -1,31 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConversorService } from '../conversor.service';
+import { HistoricoService } from '../historico.service';
 
 interface FuncaoQueDevolvePromise {
   (valor: string): Promise<string>;
 }
 
 @Component({
-  selector: 'app-tela-conversor',
-  templateUrl: './tela-conversor.component.html',
-  styleUrls: ['./tela-conversor.component.css']
+  selector: 'app-formulario-conversor',
+  templateUrl: './formulario-conversor.component.html',
+  styleUrls: ['./formulario-conversor.component.css'],
 })
-export class TelaConversorComponent implements OnInit {
-
+export class FormularioConversorComponent implements OnInit {
   tiposDeBases: Array<any>;
   formulario: FormGroup;
   convertendo: boolean;
 
-  mapeamentoTipoDeConversao: { [key: string] : FuncaoQueDevolvePromise};
-  mapeamentoBasePattern: { [key: string] : string };
+  mapeamentoTipoDeConversao: { [key: string]: FuncaoQueDevolvePromise };
+  mapeamentoBasePattern: { [key: string]: string };
 
   valorAntigoBaseInicial: string;
   valorAntigoBaseFinal: string;
 
   constructor(
     private conversorService: ConversorService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private historicoService: HistoricoService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +41,7 @@ export class TelaConversorComponent implements OnInit {
       { label: 'Binária', value: 'Binária', disabled: false },
       { label: 'Octal', value: 'Octal', disabled: false },
       { label: 'Decimal', value: 'Decimal', disabled: false },
-      { label: 'Hexadecimal', value: 'Hexadecimal', disabled: false }
+      { label: 'Hexadecimal', value: 'Hexadecimal', disabled: false },
     ];
   }
 
@@ -57,17 +58,17 @@ export class TelaConversorComponent implements OnInit {
       'Octal-Hexadecimal': this.conversorService.converterOctalParaHexadecimal,
       'Hexadecimal-Binária': this.conversorService.converterHexadecimalParaBinario,
       'Hexadecimal-Octal': this.conversorService.converterHexadecimalParaOctal,
-      'Hexadecimal-Decimal': this.conversorService.converterHexadecimalParaDecimal
+      'Hexadecimal-Decimal': this.conversorService.converterHexadecimalParaDecimal,
     };
   }
 
   configurarMapeamentoBasePattern() {
     this.mapeamentoBasePattern = {
-      'Binária': this.conversorService.patternBinario,
-      'Decimal': this.conversorService.patternDecimal,
-      'Octal': this.conversorService.patternOctal,
-      'Hexadecimal': this.conversorService.patternHexadecimal
-    }
+      Binária: this.conversorService.patternBinario,
+      Decimal: this.conversorService.patternDecimal,
+      Octal: this.conversorService.patternOctal,
+      Hexadecimal: this.conversorService.patternHexadecimal,
+    };
   }
 
   configurarFormulario() {
@@ -75,16 +76,18 @@ export class TelaConversorComponent implements OnInit {
       baseInicial: [null, Validators.required],
       valorInicial: [null, Validators.required],
       baseFinal: [null, Validators.required],
-      valorFinal: []
+      valorFinal: [],
     });
   }
 
   converter(): void {
     this.convertendo = !this.convertendo;
-    const chave = `${this.formulario.get('baseInicial')?.value}-${this.formulario.get('baseFinal')?.value}`;
+    const chave = `${this.formulario.get('baseInicial')?.value}-${
+      this.formulario.get('baseFinal')?.value
+    }`;
     const funcaoDeConversao = this.mapeamentoTipoDeConversao[chave];
 
-    if(!funcaoDeConversao){
+    if (!funcaoDeConversao) {
       throw new Error(`Tipo de conversão inválida (${chave})`);
     }
 
@@ -92,6 +95,7 @@ export class TelaConversorComponent implements OnInit {
     funcaoDeConversao(this.formulario.get('valorInicial')?.value)
       .then((valorConvertido) => {
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
+        this.historicoService.adicionarAoHistorico(this.formulario.value);
       })
       .catch(() => {
         this.formulario.get('valorFinal')?.setValue('');
@@ -108,36 +112,35 @@ export class TelaConversorComponent implements OnInit {
     this.valorAntigoBaseInicial = valor;
 
     const regexpCampoValorInicial = this.mapeamentoBasePattern[valor];
-    this.formulario.get('valorInicial')?.setValidators(
-      [
+    this.formulario
+      .get('valorInicial')
+      ?.setValidators([
         Validators.required,
-        Validators.pattern(regexpCampoValorInicial)
-      ]
-    );
+        Validators.pattern(regexpCampoValorInicial),
+      ]);
     this.formulario.get('valorInicial')?.updateValueAndValidity();
   }
 
-  ouvinteDropdownBaseFinal(event: any){
+  ouvinteDropdownBaseFinal(event: any) {
     const valor = event.value;
     this.desabilitarOpcaoDropdown(valor);
     this.habilitarOpcaoDropdown(this.valorAntigoBaseFinal);
     this.valorAntigoBaseFinal = valor;
   }
 
-  desabilitarOpcaoDropdown(valor: string){
+  desabilitarOpcaoDropdown(valor: string) {
     this.tiposDeBases.forEach((obj) => {
-      if(obj.value === valor){
+      if (obj.value === valor) {
         obj.disabled = true;
       }
-    })
+    });
   }
 
-  habilitarOpcaoDropdown(valor: string){
+  habilitarOpcaoDropdown(valor: string) {
     this.tiposDeBases.forEach((obj) => {
-      if(obj.value === valor){
+      if (obj.value === valor) {
         obj.disabled = false;
       }
-    })
+    });
   }
-
 }

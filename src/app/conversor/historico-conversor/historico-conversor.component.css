@@ -1,0 +1,26 @@
+h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.cabecalho-historico {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.conteudo-historico {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+@media screen and (max-width: 575px) {
+  .cabecalho-historico {
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+}
