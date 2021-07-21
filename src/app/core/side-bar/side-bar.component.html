@@ -5,5 +5,10 @@
     </a>
   </div>
 </header>
-<p-sidebar [(visible)]="exibirSideBar" position="right"></p-sidebar>
+<p-sidebar [(visible)]="exibirSideBar" position="right">
+  <div class="p-fluid">
+    <p class="titulo-opcao">Histórico:</p>
+    <p-toggleButton [(ngModel)]="historicoHabilitado" onLabel="Habilitado" offLabel="Desabilitado" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '100%'}"></p-toggleButton>
+  </div>
+</p-sidebar>
 

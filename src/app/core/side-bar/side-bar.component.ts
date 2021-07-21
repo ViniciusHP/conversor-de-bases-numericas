@@ -14,4 +14,11 @@ export class SideBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  get historicoHabilitado() {
+    return true
+  }
+
+  set historicoHabilitado(isHabilitado) {
+    console.log(isHabilitado)
+  }
 }

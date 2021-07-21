@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {SidebarModule} from 'primeng/sidebar';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 import { FooterComponent } from './footer/footer.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,8 +15,10 @@ import { SideBarComponent } from './side-bar/side-bar.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
 
-    SidebarModule
+    SidebarModule,
+    ToggleButtonModule
   ],
   exports: [
     FooterComponent,
