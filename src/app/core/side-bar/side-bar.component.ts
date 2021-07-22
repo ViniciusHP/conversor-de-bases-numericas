@@ -1,3 +1,4 @@
+import { SidebarService } from './../sidebar.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,17 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class SideBarComponent implements OnInit {
 
   exibirSideBar = false;
+  historico!: boolean;
 
-  constructor() { }
+  constructor(
+    private sidebarService: SidebarService
+  ) { }
 
   ngOnInit(): void {
+    this.historico = this.sidebarService.historicoHabilitado;
   }
 
-  get historicoHabilitado() {
-    return true
-  }
-
-  set historicoHabilitado(isHabilitado) {
-    console.log(isHabilitado)
+  toggleHistorico() {
+    this.sidebarService.historicoHabilitado = this.historico;
   }
 }
