@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SidebarService } from 'src/app/core/sidebar.service';
 import { ConversorService } from '../conversor.service';
 import { HistoricoService } from '../historico.service';
 
@@ -26,7 +27,8 @@ export class FormularioConversorComponent implements OnInit {
   constructor(
     private conversorService: ConversorService,
     private formBuilder: FormBuilder,
-    private historicoService: HistoricoService
+    private historicoService: HistoricoService,
+    private sidebarService: SidebarService
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +83,7 @@ export class FormularioConversorComponent implements OnInit {
   }
 
   converter(): void {
-    this.convertendo = !this.convertendo;
+
     const chave = `${this.formulario.get('baseInicial')?.value}-${
       this.formulario.get('baseFinal')?.value
     }`;
@@ -95,7 +97,10 @@ export class FormularioConversorComponent implements OnInit {
     funcaoDeConversao(this.formulario.get('valorInicial')?.value)
       .then((valorConvertido) => {
         this.formulario.get('valorFinal')?.setValue(valorConvertido);
-        this.historicoService.adicionarAoHistorico(this.formulario.value);
+
+        if(this.sidebarService.historicoHabilitado){
+          this.historicoService.adicionarAoHistorico(this.formulario.value);
+        }
       })
       .catch(() => {
         this.formulario.get('valorFinal')?.setValue('');
