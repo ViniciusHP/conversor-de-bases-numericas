@@ -8,12 +8,12 @@ export class SidebarService {
 
   private _historico = new BehaviorSubject<boolean>(false);
 
-  adicionarOuvinteHistoricoHabilitado(fn: (valor: boolean) => void) {
-    this._historico.subscribe((v) => fn(v));
-  }
-
   constructor() {
     this.lerEstadoHistoricoLocalmente();
+  }
+
+  adicionarOuvinteHistoricoHabilitado(fn: (valor: boolean) => void) {
+    this._historico.subscribe((v) => fn(v));
   }
 
   get historicoHabilitado(): boolean {
