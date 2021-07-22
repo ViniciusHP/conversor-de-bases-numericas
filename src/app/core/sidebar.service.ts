@@ -21,7 +21,6 @@ export class SidebarService {
   }
 
   private salvarEstadoHistoricoLocalmente() {
-    console.info(`Histórico definido: ${this.historicoHabilitado}`)
     localStorage.setItem('historico', this.historicoHabilitado.toString())
   }
 
@@ -31,7 +30,6 @@ export class SidebarService {
     if(value === null){
       this.historicoHabilitado = true
     }else{
-      console.log(`Histórico lido: ${value === 'true'}`)
       this.historicoHabilitado = value === 'true';
     }
   }
