@@ -15,6 +15,8 @@ export class AppComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.historicoHabilitado = this.sidebarService.historicoHabilitado;
+    this.sidebarService.adicionarOuvinteHistoricoHabilitado((isHistoricoHabilitado) => {
+      this.historicoHabilitado = isHistoricoHabilitado;
+    })
   }
 }
