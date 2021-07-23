@@ -1,7 +1,7 @@
 <app-side-bar></app-side-bar>
 <div class="conteudo">
-  <app-formulario-conversor></app-formulario-conversor>
-  <app-historico-conversor *ngIf="historicoHabilitado"></app-historico-conversor>
+  <app-formulario-conversor @fade></app-formulario-conversor>
+  <app-historico-conversor *ngIf="historicoHabilitado" @fade></app-historico-conversor>
   <p-confirmPopup></p-confirmPopup>
 </div>
-<app-footer></app-footer>
+<app-footer @slideUp></app-footer>
