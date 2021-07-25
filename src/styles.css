@@ -23,6 +23,14 @@ body .p-inputtext.fonte-numero {
   line-height: 1.57rem;
 }
 
+app-side-bar,
+app-footer,
+app-formulario-conversor,
+app-historico-conversor,
+app-card-historico {
+  display: block;
+}
+
 .container {
   max-width: 940px;
   margin: 20px auto;
