@@ -9,7 +9,7 @@
           (click)="confirmacaoLimparHistorico($event)" [disabled]="dadosHistorico.length === 0"></button>
       </div>
     </div>
-    <div class="conteudo-historico p-col-12">
+    <div [@listAnimation]="dadosHistorico.length" class="conteudo-historico p-col-12">
       <app-card-historico *ngFor="let historico of dadosHistorico; let i = index"
         [historico]="historico" (onBotaoFechar)="removerHistorico(i)"></app-card-historico>
     </div>
