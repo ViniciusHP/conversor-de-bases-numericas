@@ -1,4 +1,10 @@
-<app-side-bar></app-side-bar>
+<app-header @slideDown (onMenuClick)="exibirSideBar = true"></app-header>
+<p-sidebar [(visible)]="exibirSideBar" position="right">
+  <div class="p-fluid">
+    <p class="titulo-opcao">Histórico:</p>
+    <p-toggleButton [(ngModel)]="historicoHabilitado" (onChange)="toggleHistorico($event.checked)" onLabel="Habilitado" offLabel="Desabilitado" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '100%'}"></p-toggleButton>
+  </div>
+</p-sidebar>
 <div class="conteudo">
   <app-formulario-conversor @fade></app-formulario-conversor>
   <app-historico-conversor *ngIf="historicoHabilitado" @fade></app-historico-conversor>

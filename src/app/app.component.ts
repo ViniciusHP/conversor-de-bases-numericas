@@ -15,14 +15,20 @@ import { SidebarService } from './core/sidebar.service';
 export class AppComponent implements OnInit{
 
   historicoHabilitado?: boolean;
+  exibirSideBar = false;
 
   constructor(
     public sidebarService: SidebarService
   ) {}
 
   ngOnInit(): void {
+    this.historicoHabilitado = this.sidebarService.historicoHabilitado;
     this.sidebarService.adicionarOuvinteHistoricoHabilitado((isHistoricoHabilitado) => {
       this.historicoHabilitado = isHistoricoHabilitado;
     })
+  }
+
+  toggleHistorico(isHabilitado: boolean) {
+    this.sidebarService.historicoHabilitado = isHabilitado;
   }
 }
