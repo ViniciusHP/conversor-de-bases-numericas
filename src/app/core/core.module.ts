@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AnimationsModule } from '../animations/animations.module';
 
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -15,7 +16,9 @@ import { HeaderComponent } from './header/header.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+
+    AnimationsModule
   ],
   exports: [
     FooterComponent,

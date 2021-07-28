@@ -12,7 +12,6 @@ a {
   margin: 0 0 0 -5px;
   cursor: pointer;
   color: var(--text-color);
-  transition: color 0.3s ease-in-out;
 }
 
 i {
@@ -26,8 +25,4 @@ i {
 .titulo-opcao {
   font-size: 1.2rem;
   text-align: center;
-}
-
-a:hover {
-  color: var(--primary-color);
 }

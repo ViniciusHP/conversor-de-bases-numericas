@@ -45,3 +45,11 @@ export const listAnimation = trigger('listAnimation', [
     ]), { optional: true })
   ])
 ])
+
+export const hoverColor = trigger('hoverColor', [
+  state('leave', style({ color: '*'})),
+  state('enter', style({ color: '{{newColor}}'}), { params: { newColor: '*' }}),
+  transition('* => *', [
+    animate('0.3s ease-in-out')
+  ])
+])
