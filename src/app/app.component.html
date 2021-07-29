@@ -4,7 +4,7 @@
   <app-historico-conversor *ngIf="historicoHabilitado" @fade></app-historico-conversor>
   <p-confirmPopup></p-confirmPopup>
 </div>
-<p-sidebar [(visible)]="exibirSideBar" position="right" style="position: absolute">
+<p-sidebar [(visible)]="exibirSideBar" position="right">
   <div class="p-fluid">
     <p class="titulo-opcao">Histórico:</p>
     <p-toggleButton [(ngModel)]="historicoHabilitado" (onChange)="toggleHistorico($event.checked)" onLabel="Habilitado" offLabel="Desabilitado" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '100%'}"></p-toggleButton>
