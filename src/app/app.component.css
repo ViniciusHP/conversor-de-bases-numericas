@@ -5,6 +5,10 @@
   min-height: 100%;
 }
 
+p-sidebar {
+  position: absolute;
+}
+
 .conteudo {
   padding: 20px;
 }

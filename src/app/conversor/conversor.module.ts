@@ -12,6 +12,7 @@ import { ConversorService } from './conversor.service';
 import { FormularioConversorComponent } from './formulario-conversor/formulario-conversor.component';
 import { HistoricoConversorComponent } from './historico-conversor/historico-conversor.component';
 import { CardHistoricoComponent } from './card-historico/card-historico.component';
+import { AnimationsModule } from '../animations/animations.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CardHistoricoComponent } from './card-historico/card-historico.componen
     ButtonModule,
     MessagesModule,
     MessageModule,
+    AnimationsModule
   ],
   exports: [FormularioConversorComponent, HistoricoConversorComponent],
   providers: [ConversorService],

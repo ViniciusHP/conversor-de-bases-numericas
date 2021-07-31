@@ -12,22 +12,17 @@ a {
   margin: 0 0 0 -5px;
   cursor: pointer;
   color: var(--text-color);
-  transition: color 0.3s ease-in-out;
 }
 
 i {
   font-size: 1.7rem;
 }
 
-.container.menu {
+.menu {
   margin: 0 auto;
 }
 
 .titulo-opcao {
   font-size: 1.2rem;
   text-align: center;
-}
-
-a:hover {
-  color: var(--primary-color);
 }

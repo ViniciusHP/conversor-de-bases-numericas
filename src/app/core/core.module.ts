@@ -1,28 +1,28 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import {SidebarModule} from 'primeng/sidebar';
-import {ToggleButtonModule} from 'primeng/togglebutton';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AnimationsModule } from '../animations/animations.module';
 
 import { FooterComponent } from './footer/footer.component';
-import { SideBarComponent } from './side-bar/side-bar.component';
-import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header.component';
+
+
+
 
 @NgModule({
   declarations: [
     FooterComponent,
-    SideBarComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
 
-    SidebarModule,
-    ToggleButtonModule
+    AnimationsModule
   ],
   exports: [
     FooterComponent,
-    SideBarComponent
+    HeaderComponent
   ]
 })
 export class CoreModule { }

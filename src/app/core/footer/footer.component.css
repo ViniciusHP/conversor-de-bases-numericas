@@ -9,14 +9,11 @@ footer {
 p {
   margin: 0;
   text-align: right;
+  color: var(--text-color);
 }
 
 a {
   text-decoration: none;
-  color: var(--primary-color);
-  transition: filter 0.3s ease-in-out;
-}
-
-a:hover {
-  filter: brightness(120%);
+  color: var(--text-color-secondary);
+  font-weight: bold;
 }
