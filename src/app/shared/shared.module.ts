@@ -10,6 +10,9 @@ import { DesfazerComponent } from './desfazer/desfazer.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    DesfazerComponent
   ]
 })
 export class SharedModule { }
