@@ -56,7 +56,9 @@ export const hoverColor = trigger('hoverColor', [
 
 export const smoothHeight = trigger('smoothHeight', [
   state('0', style({ height: '0px' })),
-  transition('void <=> *', []),
+  transition('* => void', [
+    animate('1s ease-in-out', style({ height: '0px' }))
+  ]),
   transition('* <=> *', [
     style({ height: '{{lastHeight}}px' }),
     animate('1s ease-in-out')
