@@ -5,7 +5,8 @@
   min-height: 100%;
 }
 
-p-sidebar {
+p-sidebar,
+app-desfazer {
   position: absolute;
 }
 
