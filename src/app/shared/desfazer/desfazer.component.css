@@ -1,14 +1,22 @@
-.container-defazer {
+.container-geral {
   position: fixed;
   bottom: 80px;
   right: 60px;
   max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 500;
+}
+
+.container-defazer {
   padding: 10px 15px;
+  margin-top: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: var(--surface-600);
-  opacity: 0.98;
+  background-color: var(--surface-800);
+  opacity: 0.9;
   border-radius: 12px;
   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),
     0 6px 10px 0 rgba(0,0,0,.14),

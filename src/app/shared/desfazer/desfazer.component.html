@@ -1,5 +1,10 @@
-<div class="container-defazer">
-  <span>{{texto}}</span>
-  <span class="barra-divisao"></span>
-  <button pButton pRipple type="button" icon="pi pi-undo" class="p-button-rounded p-button-danger"></button>
+<div class="container-geral" *ngIf="visivel">
+  <div class="container-defazer" *ngFor="let desfazer of listaDeObjetosDesfazer; let i = index">
+    <span>{{desfazer.texto}}</span>
+    <span class="barra-divisao"></span>
+    <button class="p-button-rounded p-button-danger"
+      pButton pRipple type="button" icon="pi pi-undo"
+      pTooltip="{{textoPadrao}}" tooltipPosition="top"
+      (click)="clickDesfazer(desfazer, i)"></button>
+  </div>
 </div>

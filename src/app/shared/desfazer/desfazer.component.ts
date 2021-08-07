@@ -1,17 +1,92 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DesfazerService } from '../desfazer.service';
 
+/**
+ * Interface utilizada para conter informações da opção de Desfazer
+ */
+export interface Desfazer {
+  texto: string;
+  tempo: number;
+  callbackOnClick: () => void;
+  timer?: any;
+}
+
+/**
+ * Componente utilizado para realizar determinada ação para desfazer alguma alteração
+ * feita dentro da aplicação
+ */
 @Component({
   selector: 'app-desfazer',
   templateUrl: './desfazer.component.html',
   styleUrls: ['./desfazer.component.css']
 })
-export class DesfazerComponent implements OnInit {
+export class DesfazerComponent implements OnInit, OnDestroy {
 
-  texto = 'Desfazer';
+  textoPadrao = 'Desfazer';
+  tempoPadrao = 5000;
 
-  constructor() { }
+  subscription: Subscription;
+
+  listaDeObjetosDesfazer: Desfazer[] = [];
+
+  constructor(private desfazerService: DesfazerService) { }
 
   ngOnInit(): void {
+    this.subscription = this.desfazerService.exibirDesfazer$.subscribe(
+      info => {
+        const texto = info.texto ? info.texto : this.textoPadrao;
+        const tempo = info.tempo ? info.tempo : this.tempoPadrao;
+        const callbackOnClick = info.onClick;
+
+        const objetoDesfazer: Desfazer = {
+          texto,
+          tempo,
+          callbackOnClick
+        }
+
+        const indice = this.listaDeObjetosDesfazer.length;
+        objetoDesfazer.timer = setTimeout(() => this.removerDaLista(objetoDesfazer, indice), tempo);
+
+        this.listaDeObjetosDesfazer.push(objetoDesfazer);
+      }
+    )
+  }
+
+  /**
+   * Controla a exibição do componente a partir da lista de objetos desfazer
+   */
+  get visivel(): boolean {
+    return this.listaDeObjetosDesfazer.length > 0;
+  }
+
+  /**
+   * Chama a callback que executa o código que resultará no revertimento de determinada ação
+   * @param desfazer - Objeto desfazer
+   * @param indice - Índice do objeto desfazer dentro da lista de objetos desfazer
+   */
+  clickDesfazer(desfazer: Desfazer, indice: number){
+    desfazer.callbackOnClick();
+    this.removerDaLista(desfazer, indice);
+  }
+
+  /**
+   * Remove o objeto desfazer da lista de objetos e limpa o timer do Timeout
+   * @param desfazer - Objeto desfazer
+   * @param indice - Índice do objeto desfazer dentro da lista de objetos desfazer
+   */
+  removerDaLista(desfazer: Desfazer, indice: number): void {
+    if(desfazer.timer)
+      clearTimeout(desfazer.timer);
+
+    this.listaDeObjetosDesfazer.splice(indice, 1);
+  }
+
+  ngOnDestroy(): void {
+    this.listaDeObjetosDesfazer.forEach(d => {
+      if(d.timer) clearTimeout(d.timer);
+    })
+    this.subscription.unsubscribe();
   }
 
 }
