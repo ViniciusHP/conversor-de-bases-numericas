@@ -5,6 +5,7 @@ import { ConfirmationService } from 'primeng/api';
 import { HistoricoService } from '../historico.service';
 import { Historico } from '../historico.model';
 import { listAnimation, smoothHeight } from 'src/app/animations/animations';
+import { DesfazerService } from 'src/app/shared/desfazer.service';
 
 @Component({
   selector: 'app-historico-conversor',

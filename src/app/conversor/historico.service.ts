@@ -25,6 +25,10 @@ export class HistoricoService {
     return ([] as Historico[]).concat(this.historicoConversao);
   }
 
+  obterHistoricoNoIndice(indice: number): Historico {
+    return this.historicoConversao[indice];
+  }
+
   limparTodoHistorico(): void {
     this.historicoConversao = [];
     this.armazenarHistoricoLocalmente()
