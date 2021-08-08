@@ -16,7 +16,8 @@ import { DesfazerService } from 'src/app/shared/desfazer.service';
 export class HistoricoConversorComponent implements OnInit {
   constructor(
     private historicoService: HistoricoService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private desfazerService: DesfazerService
   ) {}
 
   ngOnInit(): void {}
@@ -43,6 +44,13 @@ export class HistoricoConversorComponent implements OnInit {
   }
 
   removerHistorico(indice: number) {
+    let historico = this.historicoService.obterHistoricoNoIndice(indice);
     this.historicoService.removerDoHistorico(indice);
+
+    this.desfazerService.exibirOpcaoDesfazer({texto: 'Excluído com sucesso!',
+      onClick: () => {
+        this.historicoService.adicionarAoHistorico(historico, indice);
+      }
+    });
   }
 }
