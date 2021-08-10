@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { slideUp } from 'src/app/animations/animations';
 import { DesfazerService } from '../desfazer.service';
 
 /**
@@ -19,7 +20,8 @@ export interface Desfazer {
 @Component({
   selector: 'app-desfazer',
   templateUrl: './desfazer.component.html',
-  styleUrls: ['./desfazer.component.css']
+  styleUrls: ['./desfazer.component.css'],
+  animations: [slideUp]
 })
 export class DesfazerComponent implements OnInit, OnDestroy {
 
@@ -51,13 +53,6 @@ export class DesfazerComponent implements OnInit, OnDestroy {
         this.listaDeObjetosDesfazer.push(objetoDesfazer);
       }
     )
-  }
-
-  /**
-   * Controla a exibição do componente a partir da lista de objetos desfazer
-   */
-  get visivel(): boolean {
-    return this.listaDeObjetosDesfazer.length > 0;
   }
 
   /**
