@@ -47,7 +47,7 @@ export class HistoricoConversorComponent implements OnInit {
     let historico = this.historicoService.obterHistoricoNoIndice(indice);
     this.historicoService.removerDoHistorico(indice);
 
-    this.desfazerService.exibirOpcaoDesfazer({texto: 'Excluído com sucesso!',
+    this.desfazerService.exibirOpcaoDesfazer({texto: 'Item excluído',
       onClick: () => {
         this.historicoService.adicionarAoHistorico(historico, indice);
       }
