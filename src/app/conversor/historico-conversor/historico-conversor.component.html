@@ -14,5 +14,11 @@
       <app-card-historico *ngFor="let historico of dadosHistorico; let i = index"
         [historico]="historico" (onBotaoFechar)="removerHistorico(i)"></app-card-historico>
     </div>
+    <div class="p-col-12 p-text-center"
+      @fade *ngIf="dadosHistorico.length === 0">
+      <p class="frase-sem-historico">
+        Não existe histórico para exibir.
+      </p>
+    </div>
   </div>
 </div>
