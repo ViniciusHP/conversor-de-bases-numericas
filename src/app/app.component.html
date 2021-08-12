@@ -14,5 +14,5 @@
     <p-toggleButton [(ngModel)]="desfazerExclusao" (onChange)="toggleDesfazerExclusao($event.checked)" onLabel="Ativado" offLabel="Desativado" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
   </div>
 </p-sidebar>
-<app-desfazer></app-desfazer>
+<app-desfazer *ngIf="desfazerExclusao"></app-desfazer>
 <app-footer @slideUp></app-footer>
