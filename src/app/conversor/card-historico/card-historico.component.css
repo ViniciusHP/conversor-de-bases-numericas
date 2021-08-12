@@ -19,10 +19,16 @@
 .numero {
   word-wrap: break-word;
   font-size: 1.18rem;
+  color: var(--text-color);
+}
+
+.nome-base {
+  color: var(--text-color-secondary);
 }
 
 .icone-flecha {
   transition: all 0.3s ease-in-out;
+  color: var(--primary-color);
 }
 
 @media screen and (max-width: 575px) {
