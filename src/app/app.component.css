@@ -5,10 +5,23 @@
   min-height: 100%;
 }
 
-p-sidebar {
+p-sidebar,
+app-desfazer {
   position: absolute;
 }
 
 .conteudo {
   padding: 20px;
+}
+
+.container-opcao {
+  margin-bottom: 30px;
+}
+
+.titulo-opcao {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
 }

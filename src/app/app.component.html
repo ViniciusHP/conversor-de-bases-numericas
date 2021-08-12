@@ -5,9 +5,14 @@
   <p-confirmPopup></p-confirmPopup>
 </div>
 <p-sidebar [(visible)]="exibirSideBar" position="right">
-  <div class="p-fluid">
-    <p class="titulo-opcao">Histórico:</p>
-    <p-toggleButton [(ngModel)]="historicoHabilitado" (onChange)="toggleHistorico($event.checked)" onLabel="Habilitado" offLabel="Desabilitado" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width': '100%'}"></p-toggleButton>
+  <div class="p-fluid container-opcao">
+    <span class="titulo-opcao">Histórico:</span>
+    <p-toggleButton [(ngModel)]="historicoHabilitado" (onChange)="toggleHistorico($event.checked)" onLabel="Habilitado" offLabel="Desabilitado" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
+  </div>
+  <div @slideUp class="p-fluid container-opcao" *ngIf="historicoHabilitado && exibirSideBar">
+    <span class="titulo-opcao">Desfazer Exclusão:</span>
+    <p-toggleButton [(ngModel)]="desfazerExclusao" (onChange)="toggleDesfazerExclusao($event.checked)" onLabel="Ativado" offLabel="Desativado" onIcon="pi pi-check" offIcon="pi pi-times"></p-toggleButton>
   </div>
 </p-sidebar>
+<app-desfazer *ngIf="desfazerExclusao"></app-desfazer>
 <app-footer @slideUp></app-footer>

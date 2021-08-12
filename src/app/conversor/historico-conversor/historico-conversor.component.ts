@@ -5,6 +5,7 @@ import { ConfirmationService } from 'primeng/api';
 import { HistoricoService } from '../historico.service';
 import { Historico } from '../historico.model';
 import { listAnimation, smoothHeight } from 'src/app/animations/animations';
+import { DesfazerService } from 'src/app/shared/desfazer.service';
 
 @Component({
   selector: 'app-historico-conversor',
@@ -15,7 +16,8 @@ import { listAnimation, smoothHeight } from 'src/app/animations/animations';
 export class HistoricoConversorComponent implements OnInit {
   constructor(
     private historicoService: HistoricoService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private desfazerService: DesfazerService
   ) {}
 
   ngOnInit(): void {}
@@ -42,6 +44,13 @@ export class HistoricoConversorComponent implements OnInit {
   }
 
   removerHistorico(indice: number) {
+    let historico = this.historicoService.obterHistoricoNoIndice(indice);
     this.historicoService.removerDoHistorico(indice);
+
+    this.desfazerService.exibirOpcaoDesfazer({texto: 'Item excluído',
+      onClick: () => {
+        this.historicoService.adicionarAoHistorico(historico, indice);
+      }
+    });
   }
 }

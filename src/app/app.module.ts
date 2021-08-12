@@ -11,6 +11,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AppComponent } from './app.component';
 import { ConversorModule } from './conversor/conversor.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -28,7 +29,8 @@ import { CoreModule } from './core/core.module';
     ToggleButtonModule,
 
     ConversorModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]

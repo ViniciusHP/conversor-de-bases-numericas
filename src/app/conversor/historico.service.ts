@@ -11,8 +11,8 @@ export class HistoricoService {
     this.lerHistoricoArmazenadoLocalmente();
   }
 
-  adicionarAoHistorico(historico: Historico): void {
-    this.historicoConversao.unshift(historico);
+  adicionarAoHistorico(historico: Historico, indice: number = 0): void {
+    this.historicoConversao.splice(indice, 0, historico);
     this.armazenarHistoricoLocalmente()
   }
 
@@ -23,6 +23,10 @@ export class HistoricoService {
 
   obterHistorico(): Historico[] {
     return ([] as Historico[]).concat(this.historicoConversao);
+  }
+
+  obterHistoricoNoIndice(indice: number): Historico {
+    return this.historicoConversao[indice];
   }
 
   limparTodoHistorico(): void {
