@@ -13,6 +13,7 @@ import { FormularioConversorComponent } from './formulario-conversor/formulario-
 import { HistoricoConversorComponent } from './historico-conversor/historico-conversor.component';
 import { CardHistoricoComponent } from './card-historico/card-historico.component';
 import { AnimationsModule } from '../animations/animations.module';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,8 @@ import { AnimationsModule } from '../animations/animations.module';
     ButtonModule,
     MessagesModule,
     MessageModule,
+    TooltipModule,
+
     AnimationsModule
   ],
   exports: [FormularioConversorComponent, HistoricoConversorComponent],
