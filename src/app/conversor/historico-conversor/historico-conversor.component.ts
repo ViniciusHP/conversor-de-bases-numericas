@@ -4,14 +4,14 @@ import { ConfirmationService } from 'primeng/api';
 
 import { HistoricoService } from '../historico.service';
 import { Historico } from '../historico.model';
-import { listAnimation, smoothHeight } from 'src/app/animations/animations';
+import { fade, listAnimation, smoothHeight } from 'src/app/animations/animations';
 import { DesfazerService } from 'src/app/shared/desfazer.service';
 
 @Component({
   selector: 'app-historico-conversor',
   templateUrl: './historico-conversor.component.html',
   styleUrls: ['./historico-conversor.component.css'],
-  animations: [listAnimation, smoothHeight]
+  animations: [listAnimation, smoothHeight, fade]
 })
 export class HistoricoConversorComponent implements OnInit {
   constructor(
