@@ -13,27 +13,23 @@ label {
   align-items: center;
 }
 
-.agrupador-flechas i{
-  font-size: 1.2rem;
-  margin: 3px;
-}
-
-.flechas-horizontais {
+.agrupador-flechas {
   display: flex;
   flex-direction: column;
 }
 
-.flechas-verticais {
-  display: none;
+.agrupador-flechas i{
+  font-size: 1.2rem;
+  margin: 3px;
+  transition: transform .3s ease-in-out;
 }
 
 @media screen and (max-width: 767px) {
-  .flechas-horizontais {
-    display: none;
+  .agrupador-flechas {
+    flex-direction: row;
   }
 
-  .flechas-verticais {
-    display: flex;
-    flex-direction: row;
+  .agrupador-flechas i{
+    transform: rotate(90deg);
   }
 }
