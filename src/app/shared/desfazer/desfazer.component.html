@@ -1,12 +1,12 @@
 <div class="container-geral">
   <div class="container-defazer"
     @slideUp
-    *ngFor="let desfazer of listaDeObjetosDesfazer; let i = index">
+    *ngFor="let desfazer of listaDeObjetosDesfazer">
     <span>{{desfazer.texto}}</span>
     <span class="barra-divisao"></span>
     <button class="p-button-rounded p-button-danger"
       pButton pRipple type="button" icon="pi pi-undo"
       pTooltip="{{textoPadrao}}" tooltipPosition="top"
-      (click)="clickDesfazer(desfazer, i)"></button>
+      (click)="clickDesfazer(desfazer)"></button>
   </div>
 </div>

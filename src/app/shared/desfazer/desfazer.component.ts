@@ -4,9 +4,15 @@ import { slideUp } from 'src/app/animations/animations';
 import { DesfazerService } from '../desfazer.service';
 
 /**
+ * Variável auxiliar para identificação de cada objeto Desfazer
+ */
+let idAtual = 0;
+
+/**
  * Interface utilizada para conter informações da opção de Desfazer
  */
 export interface Desfazer {
+  id: number;
   texto: string;
   tempo: number;
   callbackOnClick: () => void;
@@ -42,14 +48,13 @@ export class DesfazerComponent implements OnInit, OnDestroy {
         const callbackOnClick = info.onClick;
 
         const objetoDesfazer: Desfazer = {
+          id: ++idAtual,
           texto,
           tempo,
           callbackOnClick
         }
 
-        const indice = this.listaDeObjetosDesfazer.length;
-        objetoDesfazer.timer = setTimeout(() => this.removerDaLista(objetoDesfazer, indice), tempo);
-
+        objetoDesfazer.timer = setTimeout(() => this.removerDaLista(objetoDesfazer), tempo);
         this.listaDeObjetosDesfazer.push(objetoDesfazer);
       }
     )
@@ -58,23 +63,25 @@ export class DesfazerComponent implements OnInit, OnDestroy {
   /**
    * Chama a callback que executa o código que resultará no revertimento de determinada ação
    * @param desfazer - Objeto desfazer
-   * @param indice - Índice do objeto desfazer dentro da lista de objetos desfazer
    */
-  clickDesfazer(desfazer: Desfazer, indice: number){
+  clickDesfazer(desfazer: Desfazer){
     desfazer.callbackOnClick();
-    this.removerDaLista(desfazer, indice);
+    this.removerDaLista(desfazer);
   }
 
   /**
    * Remove o objeto desfazer da lista de objetos e limpa o timer do Timeout
    * @param desfazer - Objeto desfazer
-   * @param indice - Índice do objeto desfazer dentro da lista de objetos desfazer
    */
-  removerDaLista(desfazer: Desfazer, indice: number): void {
+  removerDaLista(desfazer: Desfazer): void {
     if(desfazer.timer)
       clearTimeout(desfazer.timer);
 
-    this.listaDeObjetosDesfazer.splice(indice, 1);
+    this.listaDeObjetosDesfazer.forEach((d, indice, lista) => {
+      if(d.id === desfazer.id){
+        lista.splice(indice, 1);
+      }
+    })
   }
 
   ngOnDestroy(): void {
