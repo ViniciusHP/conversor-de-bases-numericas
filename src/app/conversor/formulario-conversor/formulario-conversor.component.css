@@ -7,6 +7,12 @@ label {
   font-weight: normal;
 }
 
+.container-botao-inverter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .agrupador-flechas i{
   font-size: 1.2rem;
   margin: 3px;
