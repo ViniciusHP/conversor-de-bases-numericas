@@ -148,4 +148,39 @@ export class FormularioConversorComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * Indica se tanto a base inicial quanto a base final foi selecionada
+   */
+  get basesForamSelecionadas(): boolean {
+    return (this.formulario.get('baseInicial')?.value && this.formulario.get('baseFinal')?.value);
+  }
+
+  /**
+   * Inverte a seleção das bases nos dropdowns e os valores nos campos de texto
+   */
+  inverterSelecao(): void {
+    const dropdownBaseInicial = this.formulario.get('baseInicial');
+    const dropdownBaseFinal = this.formulario.get('baseFinal');
+    const inputValorInicial = this.formulario.get('valorInicial');
+    const inputValorFinal = this.formulario.get('valorFinal');
+
+    const baseTemporaria = dropdownBaseInicial?.value;
+    dropdownBaseInicial?.setValue(dropdownBaseFinal?.value);
+    dropdownBaseFinal?.setValue(baseTemporaria);
+
+    const valorTemporario = inputValorInicial?.value;
+    inputValorInicial?.setValue(inputValorFinal?.value);
+    inputValorFinal?.setValue(valorTemporario);
+
+    const regexpCampoValorInicial = this.mapeamentoBasePattern[inputValorInicial?.value];
+    inputValorInicial?.setValidators([
+        Validators.required,
+        Validators.pattern(regexpCampoValorInicial),
+    ]);
+
+    dropdownBaseInicial?.updateValueAndValidity();
+    dropdownBaseFinal?.updateValueAndValidity();
+    inputValorInicial?.updateValueAndValidity();
+  }
 }

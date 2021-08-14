@@ -20,7 +20,9 @@
       </div>
       <div class="p-col-2 p-md-2 p-lg-1 p-field p-as-center container-botao-inverter">
         <button pButton class="p-button-success p-button-text botao-flechas"
-          pTooltip="Inverter seleção" tooltipPosition="top">
+          pTooltip="Inverter seleção" tooltipPosition="top"
+          type="button" (click)="inverterSelecao()"
+          [disabled]="!basesForamSelecionadas">
             <div class="agrupador-flechas">
               <i class="pi pi-arrow-right"></i>
               <i class="pi pi-arrow-left"></i>
