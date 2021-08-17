@@ -173,7 +173,8 @@ export class FormularioConversorComponent implements OnInit {
     inputValorInicial?.setValue(inputValorFinal?.value);
     inputValorFinal?.setValue(valorTemporario);
 
-    const regexpCampoValorInicial = this.mapeamentoBasePattern[inputValorInicial?.value];
+    const regexpCampoValorInicial = this.mapeamentoBasePattern[dropdownBaseInicial?.value];
+
     inputValorInicial?.setValidators([
         Validators.required,
         Validators.pattern(regexpCampoValorInicial),
