@@ -24,11 +24,11 @@ label {
   transition: transform .3s ease-in-out;
 }
 
-.botao-flechas:hover .agrupador-flechas i:nth-child(1) {
+[habilitado].botao-flechas:hover .agrupador-flechas i:nth-child(1) {
   animation: deslizaParaDireita .5s ease-in;
 }
 
-.botao-flechas:hover .agrupador-flechas i:nth-child(2) {
+[habilitado].botao-flechas:hover .agrupador-flechas i:nth-child(2) {
   animation: deslizaParaEsquerda .5s ease-in;
 }
 
@@ -41,11 +41,11 @@ label {
     transform: rotate(90deg);
   }
 
-  .botao-flechas:hover .agrupador-flechas i:nth-child(1) {
+  [habilitado].botao-flechas:hover .agrupador-flechas i:nth-child(1) {
     animation: deslizaParaCima .5s ease-in;
   }
 
-  .botao-flechas:hover .agrupador-flechas i:nth-child(2) {
+  [habilitado].botao-flechas:hover .agrupador-flechas i:nth-child(2) {
     animation: deslizaParaBaixo .5s ease-in;
   }
 }
