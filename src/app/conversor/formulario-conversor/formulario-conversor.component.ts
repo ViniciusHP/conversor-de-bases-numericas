@@ -8,6 +8,9 @@ interface FuncaoQueDevolvePromise {
   (valor: string): Promise<string>;
 }
 
+/**
+ * Componente de formulário de conversão de bases.
+ */
 @Component({
   selector: 'app-formulario-conversor',
   templateUrl: './formulario-conversor.component.html',
@@ -38,6 +41,9 @@ export class FormularioConversorComponent implements OnInit {
     this.configurarFormulario();
   }
 
+  /**
+   * Inicializa o array de objetos com os tipos de bases que serão passadas para o dropdown.
+   */
   configurarTiposDeConversao() {
     this.tiposDeBases = [
       { label: 'Binária', value: 'Binária', disabled: false },
@@ -47,6 +53,10 @@ export class FormularioConversorComponent implements OnInit {
     ];
   }
 
+  /**
+   * Inicializa o objeto responsável por realizar o mapeamento das bases selecionadas e o método
+   * correspondente para conversão do valor.
+   */
   configurarMapeamentoDeConversao() {
     this.mapeamentoTipoDeConversao = {
       'Binária-Decimal': this.conversorService.converterBinarioParaDecimal,
@@ -64,6 +74,9 @@ export class FormularioConversorComponent implements OnInit {
     };
   }
 
+  /**
+   * Inicializa o objeto responsável por mapear o nome da base e o padrão de caracteres que ela aceita.
+   */
   configurarMapeamentoBasePattern() {
     this.mapeamentoBasePattern = {
       Binária: this.conversorService.patternBinario,
@@ -73,6 +86,9 @@ export class FormularioConversorComponent implements OnInit {
     };
   }
 
+  /**
+   * Inicializa o formulário.
+   */
   configurarFormulario() {
     this.formulario = this.formBuilder.group({
       baseInicial: [null, Validators.required],
@@ -82,6 +98,10 @@ export class FormularioConversorComponent implements OnInit {
     });
   }
 
+  /**
+   * Método encarregado de realizar a conversão do valor inicial na base inicial para
+   * o valor final na base final.
+   */
   converter(): void {
 
     const chave = `${this.formulario.get('baseInicial')?.value}-${
@@ -120,12 +140,12 @@ export class FormularioConversorComponent implements OnInit {
     this._baseInicial = base;
     this.atualizaSelecaoDeBases();
 
-    const regexpCampoValorInicial = this.mapeamentoBasePattern[base];
+    const patternCampoValorInicial = this.mapeamentoBasePattern[base];
     const inputValorInicial = this.formulario.get('valorInicial');
 
     inputValorInicial?.setValidators([
       Validators.required,
-      Validators.pattern(regexpCampoValorInicial),
+      Validators.pattern(patternCampoValorInicial),
     ]);
     inputValorInicial?.updateValueAndValidity();
   }
@@ -141,10 +161,18 @@ export class FormularioConversorComponent implements OnInit {
     this.atualizaSelecaoDeBases();
   }
 
+  /**
+   * Método que recebe o evento de mudança de valor do dropdown referente a base inicial.
+   * @param event - Evento do dropdown.
+   */
   ouvinteDropdownBaseInicial(event: any) {
     this.baseInicial = event.value;
   }
 
+  /**
+   * Método que recebe o evento de mudança de valor do dropdown referente a base final.
+   * @param event - Evento do dropdown.
+   */
   ouvinteDropdownBaseFinal(event: any) {
     this.baseFinal = event.value;
   }
