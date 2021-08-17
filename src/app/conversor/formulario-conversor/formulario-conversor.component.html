@@ -11,7 +11,7 @@
             formControlName="baseInicial" (onChange)="ouvinteDropdownBaseInicial($event)"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
-          <label for="valorInicial">Valor na base {{ formulario.get('baseInicial')?.value || 'inicial'}}:</label>
+          <label for="valorInicial">Valor na base {{ baseInicial || 'inicial'}}:</label>
           <input pInputText class="fonte-numero" type="text" id="valorInicial"
             formControlName="valorInicial">
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.dirty" severity="error" text="Informe um valor"></p-message>
@@ -37,7 +37,7 @@
             formControlName="baseFinal" (onChange)="ouvinteDropdownBaseFinal($event)"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
-          <label for="valorFinal">Valor na base {{ formulario.get('baseFinal')?.value || 'desejada'}}:</label>
+          <label for="valorFinal">Valor na base {{ baseFinal || 'desejada'}}:</label>
           <input pInputText class="fonte-numero" type="text" id="valorFinal"
             formControlName="valorFinal" >
         </div>
