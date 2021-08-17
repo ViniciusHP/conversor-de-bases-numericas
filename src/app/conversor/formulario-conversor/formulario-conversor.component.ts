@@ -21,8 +21,8 @@ export class FormularioConversorComponent implements OnInit {
   mapeamentoTipoDeConversao: { [key: string]: FuncaoQueDevolvePromise };
   mapeamentoBasePattern: { [key: string]: string };
 
-  valorAntigoBaseInicial: string;
-  valorAntigoBaseFinal: string;
+  private _baseInicial: string;
+  private _baseFinal: string;
 
   constructor(
     private conversorService: ConversorService,
@@ -110,54 +110,68 @@ export class FormularioConversorComponent implements OnInit {
       });
   }
 
-  ouvinteDropdownBaseInicial(event: any) {
-    const valor = event.value;
-    this.desabilitarOpcaoDropdown(valor);
-    this.habilitarOpcaoDropdown(this.valorAntigoBaseInicial);
-    this.valorAntigoBaseInicial = valor;
+  /**
+   * Base numérica selecionada como base fonte.
+   */
+  get baseInicial(): string {
+    return this._baseInicial;
+  }
+  set baseInicial(base: string) {
+    this._baseInicial = base;
+    this.atualizaSelecaoDeBases();
 
-    const regexpCampoValorInicial = this.mapeamentoBasePattern[valor];
-    this.formulario
-      .get('valorInicial')
-      ?.setValidators([
-        Validators.required,
-        Validators.pattern(regexpCampoValorInicial),
-      ]);
-    this.formulario.get('valorInicial')?.updateValueAndValidity();
+    const regexpCampoValorInicial = this.mapeamentoBasePattern[base];
+    const inputValorInicial = this.formulario.get('valorInicial');
+
+    inputValorInicial?.setValidators([
+      Validators.required,
+      Validators.pattern(regexpCampoValorInicial),
+    ]);
+    inputValorInicial?.updateValueAndValidity();
+  }
+
+  /**
+   * Base numérica selecionada como alvo.
+   */
+  get baseFinal(): string {
+    return this._baseFinal;
+  }
+  set baseFinal(base: string) {
+    this._baseFinal = base;
+    this.atualizaSelecaoDeBases();
+  }
+
+  ouvinteDropdownBaseInicial(event: any) {
+    this.baseInicial = event.value;
   }
 
   ouvinteDropdownBaseFinal(event: any) {
-    const valor = event.value;
-    this.desabilitarOpcaoDropdown(valor);
-    this.habilitarOpcaoDropdown(this.valorAntigoBaseFinal);
-    this.valorAntigoBaseFinal = valor;
+    this.baseFinal = event.value;
   }
 
-  desabilitarOpcaoDropdown(valor: string) {
-    this.tiposDeBases.forEach((obj) => {
-      if (obj.value === valor) {
-        obj.disabled = true;
-      }
-    });
-  }
-
-  habilitarOpcaoDropdown(valor: string) {
-    this.tiposDeBases.forEach((obj) => {
-      if (obj.value === valor) {
-        obj.disabled = false;
+  /**
+   * Método encarregado de habilitar ou desabilitar a seleção de uma opção do dropdown.
+   * Este método é chamado toda vez que a baseInicial ou a baseFinal é alterada.
+   */
+  atualizaSelecaoDeBases(): void {
+    this.tiposDeBases.forEach((base) => {
+      if (base.value === this.baseInicial || base.value === this.baseFinal) {
+        base.disabled = true;
+      }else{
+        base.disabled = false;
       }
     });
   }
 
   /**
-   * Indica se tanto a base inicial quanto a base final foi selecionada
+   * Indica se tanto a base inicial quanto a base final foi selecionada.
    */
   get basesForamSelecionadas(): boolean {
     return (this.formulario.get('baseInicial')?.value && this.formulario.get('baseFinal')?.value);
   }
 
   /**
-   * Inverte a seleção das bases nos dropdowns e os valores nos campos de texto
+   * Inverte a seleção das bases nos dropdowns e os valores nos campos de texto.
    */
   inverterSelecao(): void {
     const dropdownBaseInicial = this.formulario.get('baseInicial');
@@ -173,15 +187,7 @@ export class FormularioConversorComponent implements OnInit {
     inputValorInicial?.setValue(inputValorFinal?.value);
     inputValorFinal?.setValue(valorTemporario);
 
-    const regexpCampoValorInicial = this.mapeamentoBasePattern[dropdownBaseInicial?.value];
-
-    inputValorInicial?.setValidators([
-        Validators.required,
-        Validators.pattern(regexpCampoValorInicial),
-    ]);
-
-    dropdownBaseInicial?.updateValueAndValidity();
-    dropdownBaseFinal?.updateValueAndValidity();
-    inputValorInicial?.updateValueAndValidity();
+    this.baseInicial = dropdownBaseInicial?.value;
+    this.baseFinal = dropdownBaseFinal?.value;
   }
 }
