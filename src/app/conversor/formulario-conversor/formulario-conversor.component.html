@@ -21,16 +21,11 @@
       </div>
       <!-- Container Botão Inverter Seleção -->
       <div class="p-col-2 p-md-2 p-lg-1 p-field p-as-center container-botao-inverter">
-        <button pButton class="p-button-success p-button-text botao-flechas"
-          [attr.habilitado]="basesForamSelecionadas"
-          pTooltip="Inverter seleção" tooltipPosition="top"
-          type="button" (click)="inverterSelecao()"
-          [disabled]="!basesForamSelecionadas" [tooltipDisabled]="!basesForamSelecionadas">
-            <div class="agrupador-flechas">
-              <i class="pi pi-arrow-right"></i>
-              <i class="pi pi-arrow-left"></i>
-            </div>
-        </button>
+        <app-botao-inversor
+          [disabled]="!basesForamSelecionadas"
+          (onAfterInverterSelecao)="atualizaBasesAposInverterValores()"
+          [matrizAbstractControls]="matrizControlesParaInverterValores">
+        </app-botao-inversor>
       </div>
       <!-- Container Base Final -->
       <div class="p-col-12 p-md-5 p-grid">

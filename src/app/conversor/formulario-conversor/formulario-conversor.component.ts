@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SidebarService } from 'src/app/core/sidebar.service';
 import { ConversorService } from '../conversor.service';
 import { HistoricoService } from '../historico.service';
@@ -193,27 +193,25 @@ export class FormularioConversorComponent implements OnInit {
    * Indica se tanto a base inicial quanto a base final foi selecionada.
    */
   get basesForamSelecionadas(): boolean {
-    return (this.formulario.get('baseInicial')?.value && this.formulario.get('baseFinal')?.value);
+    return !!(this.formulario.get('baseInicial')?.value && this.formulario.get('baseFinal')?.value);
   }
 
   /**
-   * Inverte a seleção das bases nos dropdowns e os valores nos campos de texto.
+   * Atualiza a base inicial e a base final após a inversão de seus valores
+   * nos controles
    */
-  inverterSelecao(): void {
-    const dropdownBaseInicial = this.formulario.get('baseInicial');
-    const dropdownBaseFinal = this.formulario.get('baseFinal');
-    const inputValorInicial = this.formulario.get('valorInicial');
-    const inputValorFinal = this.formulario.get('valorFinal');
+  atualizaBasesAposInverterValores() {
+    this.baseInicial = this.formulario.get('baseInicial')?.value;
+    this.baseFinal = this.formulario.get('baseFinal')?.value;
+  }
 
-    const baseTemporaria = dropdownBaseInicial?.value;
-    dropdownBaseInicial?.setValue(dropdownBaseFinal?.value);
-    dropdownBaseFinal?.setValue(baseTemporaria);
-
-    const valorTemporario = inputValorInicial?.value;
-    inputValorInicial?.setValue(inputValorFinal?.value);
-    inputValorFinal?.setValue(valorTemporario);
-
-    this.baseInicial = dropdownBaseInicial?.value;
-    this.baseFinal = dropdownBaseFinal?.value;
+  /**
+   * Matriz com os controles que terão seus valores trocados
+   */
+  get matrizControlesParaInverterValores(): Array<{ fonte: any, alvo: any }> {
+    return [
+      { fonte: this.formulario.get('baseInicial'), alvo:  this.formulario.get('baseFinal')},
+      { fonte: this.formulario.get('valorInicial'), alvo:  this.formulario.get('valorFinal')},
+    ];
   }
 }
