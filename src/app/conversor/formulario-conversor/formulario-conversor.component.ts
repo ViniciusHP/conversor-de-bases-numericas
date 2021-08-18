@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SidebarService } from 'src/app/core/sidebar.service';
 import { ConversorService } from '../conversor.service';
 import { HistoricoService } from '../historico.service';
@@ -8,6 +8,9 @@ interface FuncaoQueDevolvePromise {
   (valor: string): Promise<string>;
 }
 
+/**
+ * Componente de formulário de conversão de bases.
+ */
 @Component({
   selector: 'app-formulario-conversor',
   templateUrl: './formulario-conversor.component.html',
@@ -21,8 +24,8 @@ export class FormularioConversorComponent implements OnInit {
   mapeamentoTipoDeConversao: { [key: string]: FuncaoQueDevolvePromise };
   mapeamentoBasePattern: { [key: string]: string };
 
-  valorAntigoBaseInicial: string;
-  valorAntigoBaseFinal: string;
+  private _baseInicial: string;
+  private _baseFinal: string;
 
   constructor(
     private conversorService: ConversorService,
@@ -38,6 +41,9 @@ export class FormularioConversorComponent implements OnInit {
     this.configurarFormulario();
   }
 
+  /**
+   * Inicializa o array de objetos com os tipos de bases que serão passadas para o dropdown.
+   */
   configurarTiposDeConversao() {
     this.tiposDeBases = [
       { label: 'Binária', value: 'Binária', disabled: false },
@@ -47,6 +53,10 @@ export class FormularioConversorComponent implements OnInit {
     ];
   }
 
+  /**
+   * Inicializa o objeto responsável por realizar o mapeamento das bases selecionadas e o método
+   * correspondente para conversão do valor.
+   */
   configurarMapeamentoDeConversao() {
     this.mapeamentoTipoDeConversao = {
       'Binária-Decimal': this.conversorService.converterBinarioParaDecimal,
@@ -64,6 +74,9 @@ export class FormularioConversorComponent implements OnInit {
     };
   }
 
+  /**
+   * Inicializa o objeto responsável por mapear o nome da base e o padrão de caracteres que ela aceita.
+   */
   configurarMapeamentoBasePattern() {
     this.mapeamentoBasePattern = {
       Binária: this.conversorService.patternBinario,
@@ -73,6 +86,9 @@ export class FormularioConversorComponent implements OnInit {
     };
   }
 
+  /**
+   * Inicializa o formulário.
+   */
   configurarFormulario() {
     this.formulario = this.formBuilder.group({
       baseInicial: [null, Validators.required],
@@ -82,11 +98,13 @@ export class FormularioConversorComponent implements OnInit {
     });
   }
 
+  /**
+   * Método encarregado de realizar a conversão do valor inicial na base inicial para
+   * o valor final na base final.
+   */
   converter(): void {
 
-    const chave = `${this.formulario.get('baseInicial')?.value}-${
-      this.formulario.get('baseFinal')?.value
-    }`;
+    const chave = `${this.baseInicial}-${this.baseFinal}`;
     const funcaoDeConversao = this.mapeamentoTipoDeConversao[chave];
 
     if (!funcaoDeConversao) {
@@ -110,42 +128,90 @@ export class FormularioConversorComponent implements OnInit {
       });
   }
 
+  /**
+   * Base numérica selecionada como base fonte.
+   */
+  get baseInicial(): string {
+    return this._baseInicial;
+  }
+  set baseInicial(base: string) {
+    this._baseInicial = base;
+    this.atualizaSelecaoDeBases();
+
+    const patternCampoValorInicial = this.mapeamentoBasePattern[base];
+    const inputValorInicial = this.formulario.get('valorInicial');
+
+    inputValorInicial?.setValidators([
+      Validators.required,
+      Validators.pattern(patternCampoValorInicial),
+    ]);
+    inputValorInicial?.updateValueAndValidity();
+  }
+
+  /**
+   * Base numérica selecionada como alvo.
+   */
+  get baseFinal(): string {
+    return this._baseFinal;
+  }
+  set baseFinal(base: string) {
+    this._baseFinal = base;
+    this.atualizaSelecaoDeBases();
+  }
+
+  /**
+   * Método que recebe o evento de mudança de valor do dropdown referente a base inicial.
+   * @param event - Evento do dropdown.
+   */
   ouvinteDropdownBaseInicial(event: any) {
-    const valor = event.value;
-    this.desabilitarOpcaoDropdown(valor);
-    this.habilitarOpcaoDropdown(this.valorAntigoBaseInicial);
-    this.valorAntigoBaseInicial = valor;
-
-    const regexpCampoValorInicial = this.mapeamentoBasePattern[valor];
-    this.formulario
-      .get('valorInicial')
-      ?.setValidators([
-        Validators.required,
-        Validators.pattern(regexpCampoValorInicial),
-      ]);
-    this.formulario.get('valorInicial')?.updateValueAndValidity();
+    this.baseInicial = event.value;
   }
 
+  /**
+   * Método que recebe o evento de mudança de valor do dropdown referente a base final.
+   * @param event - Evento do dropdown.
+   */
   ouvinteDropdownBaseFinal(event: any) {
-    const valor = event.value;
-    this.desabilitarOpcaoDropdown(valor);
-    this.habilitarOpcaoDropdown(this.valorAntigoBaseFinal);
-    this.valorAntigoBaseFinal = valor;
+    this.baseFinal = event.value;
   }
 
-  desabilitarOpcaoDropdown(valor: string) {
-    this.tiposDeBases.forEach((obj) => {
-      if (obj.value === valor) {
-        obj.disabled = true;
+  /**
+   * Método encarregado de habilitar ou desabilitar a seleção de uma opção do dropdown.
+   * Este método é chamado toda vez que a baseInicial ou a baseFinal é alterada.
+   */
+  atualizaSelecaoDeBases(): void {
+    this.tiposDeBases.forEach((base) => {
+      if (base.value === this.baseInicial || base.value === this.baseFinal) {
+        base.disabled = true;
+      }else{
+        base.disabled = false;
       }
     });
   }
 
-  habilitarOpcaoDropdown(valor: string) {
-    this.tiposDeBases.forEach((obj) => {
-      if (obj.value === valor) {
-        obj.disabled = false;
-      }
-    });
+  /**
+   * Indica se tanto a base inicial quanto a base final foi selecionada.
+   */
+  get basesForamSelecionadas(): boolean {
+    return !!(this.formulario.get('baseInicial')?.value && this.formulario.get('baseFinal')?.value);
+  }
+
+  /**
+   * Atualiza a base inicial e a base final após a inversão de seus valores
+   * nos controles
+   */
+  atualizaBasesAposInverterValores() {
+    this.baseInicial = this.formulario.get('baseInicial')?.value;
+    this.baseFinal = this.formulario.get('baseFinal')?.value;
+  }
+
+  /**
+   * Matriz com os controles que terão seus valores trocados
+   */
+  get matrizControlesParaInverterValores(): Array<{ fonte: any, alvo: any }> {
+    return [
+      { fonte: this.formulario.get('baseInicial'), alvo:  this.formulario.get('baseFinal')},
+      { fonte: this.formulario.get('valorInicial'), alvo:  this.formulario.get('valorFinal')},
+    ];
   }
 }

@@ -4,6 +4,7 @@
       <div class="p-col-12 p-text-center">
         <h1>Conversor de Bases Numéricas</h1>
       </div>
+      <!-- Container Base Inicial -->
       <div class="p-col-12 p-md-5 p-grid">
         <div class="p-col-12 p-fluid p-field">
           <label>De:</label>
@@ -11,17 +12,22 @@
             formControlName="baseInicial" (onChange)="ouvinteDropdownBaseInicial($event)"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
-          <label for="valorInicial">Valor na base {{ formulario.get('baseInicial')?.value || 'inicial'}}:</label>
+          <label for="valorInicial">Valor na base {{ baseInicial || 'inicial'}}:</label>
           <input pInputText class="fonte-numero" type="text" id="valorInicial"
             formControlName="valorInicial">
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.dirty" severity="error" text="Informe um valor"></p-message>
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.dirty" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>
         </div>
       </div>
-      <div class="p-col-1 p-field p-as-center">
-        <i class="pi pi-arrow-right icone-flecha"></i>
-        <i class="pi pi-arrow-down icone-flecha"></i>
+      <!-- Container Botão Inverter Seleção -->
+      <div class="p-col-2 p-md-2 p-lg-1 p-field p-as-center container-botao-inverter">
+        <app-botao-inversor
+          [disabled]="!basesForamSelecionadas"
+          (onAfterInverterSelecao)="atualizaBasesAposInverterValores()"
+          [matrizAbstractControls]="matrizControlesParaInverterValores">
+        </app-botao-inversor>
       </div>
+      <!-- Container Base Final -->
       <div class="p-col-12 p-md-5 p-grid">
         <div class="p-col-12 p-fluid p-field">
           <label>Para:</label>
@@ -29,11 +35,12 @@
             formControlName="baseFinal" (onChange)="ouvinteDropdownBaseFinal($event)"></p-dropdown>
         </div>
         <div class="p-col-12 p-fluid p-field">
-          <label for="valorFinal">Valor na base {{ formulario.get('baseFinal')?.value || 'desejada'}}:</label>
+          <label for="valorFinal">Valor na base {{ baseFinal || 'desejada'}}:</label>
           <input pInputText class="fonte-numero" type="text" id="valorFinal"
             formControlName="valorFinal" >
         </div>
       </div>
+      <!-- Container Botão Converter -->
       <div class="p-col-12 p-d-flex p-jc-center">
         <button pButton type="submit" [label]="convertendo ? 'Convertendo' : 'Converter'"
           [disabled]="formulario.invalid || convertendo">
