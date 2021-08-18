@@ -1,0 +1,10 @@
+<button pButton class="p-button-success p-button-text botao-flechas"
+  [ngClass]="!disabled ? 'habilitado' : ''"
+  pTooltip="Inverter seleção" tooltipPosition="top"
+  type="button" (click)="trocarValores()"
+  [disabled]="disabled" [tooltipDisabled]="disabled">
+    <div class="agrupador-flechas">
+      <i class="pi pi-arrow-right"></i>
+      <i class="pi pi-arrow-left"></i>
+    </div>
+</button>
