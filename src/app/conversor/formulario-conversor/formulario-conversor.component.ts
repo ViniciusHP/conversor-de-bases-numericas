@@ -104,9 +104,7 @@ export class FormularioConversorComponent implements OnInit {
    */
   converter(): void {
 
-    const chave = `${this.formulario.get('baseInicial')?.value}-${
-      this.formulario.get('baseFinal')?.value
-    }`;
+    const chave = `${this.baseInicial}-${this.baseFinal}`;
     const funcaoDeConversao = this.mapeamentoTipoDeConversao[chave];
 
     if (!funcaoDeConversao) {
