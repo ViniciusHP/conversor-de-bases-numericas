@@ -15,6 +15,7 @@ import { CardHistoricoComponent } from './card-historico/card-historico.componen
 import { AnimationsModule } from '../animations/animations.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { BotaoInversorComponent } from './botao-inversor/botao-inversor.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { BotaoInversorComponent } from './botao-inversor/botao-inversor.componen
     MessageModule,
     TooltipModule,
 
-    AnimationsModule
+    AnimationsModule,
+    SharedModule
   ],
   exports: [FormularioConversorComponent, HistoricoConversorComponent],
   providers: [ConversorService],
