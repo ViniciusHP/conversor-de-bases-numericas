@@ -30,7 +30,7 @@ export class BotaoCopiarComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.clickObservable$ = fromEvent(this.elementRef.nativeElement, 'click');
-    this.clickSubscription$ = this.clickObservable$.pipe(debounceTime(500))
+    this.clickSubscription$ = this.clickObservable$.pipe(debounceTime(200))
       .subscribe(() => this.copiar());
   }
 
