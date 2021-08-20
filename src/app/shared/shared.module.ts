@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { DesfazerComponent } from './desfazer/desfazer.component';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { BotaoCopiarComponent } from './botao-copiar/botao-copiar.component';
 
 
 
 @NgModule({
   declarations: [
-    DesfazerComponent
+    DesfazerComponent,
+    BotaoCopiarComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TooltipModule
   ],
   exports: [
-    DesfazerComponent
+    DesfazerComponent,
+    BotaoCopiarComponent
   ]
 })
 export class SharedModule { }

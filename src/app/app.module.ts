@@ -7,6 +7,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToastModule } from 'primeng/toast';
 
 import { AppComponent } from './app.component';
 import { ConversorModule } from './conversor/conversor.module';
@@ -27,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
     ConfirmPopupModule,
     SidebarModule,
     ToggleButtonModule,
+    ToastModule,
 
     ConversorModule,
     CoreModule,
