@@ -42,7 +42,7 @@
           <div class="p-inputgroup">
             <input pInputText class="fonte-numero" type="text" id="valorFinal"
             formControlName="valorFinal">
-            <app-botao-copiar></app-botao-copiar>
+            <app-botao-copiar [campoParaCopiarValor]="formulario.get('valorFinal')"></app-botao-copiar>
           </div>
         </div>
       </div>
