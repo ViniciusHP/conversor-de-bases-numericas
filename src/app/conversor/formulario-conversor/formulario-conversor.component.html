@@ -16,7 +16,7 @@
           <div class="p-inputgroup">
             <input pInputText class="fonte-numero" type="text" id="valorInicial"
               formControlName="valorInicial">
-            <app-botao-copiar></app-botao-copiar>
+            <app-botao-copiar [campoParaCopiarValor]="formulario.get('valorInicial')"></app-botao-copiar>
           </div>
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('required') && formulario.get('valorInicial')?.dirty" severity="error" text="Informe um valor"></p-message>
           <p-message *ngIf="formulario.get('valorInicial')?.hasError('pattern') && formulario.get('valorInicial')?.dirty" severity="error" text="O valor deve ser positivo e na base {{ formulario.get('baseInicial')?.value }}"></p-message>

@@ -6,6 +6,7 @@
 }
 
 p-sidebar,
+p-toast,
 app-desfazer {
   position: absolute;
 }
