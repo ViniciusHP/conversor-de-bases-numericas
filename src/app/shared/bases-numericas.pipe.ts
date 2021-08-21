@@ -19,6 +19,8 @@ export class BasesNumericasPipe implements PipeTransform {
         return this.octal(valor);
       case 10:
         return this.decimal(valor);
+      case 16:
+        return this.hexadecimal(valor);
       default:
         return valor;
     }
@@ -42,7 +44,7 @@ export class BasesNumericasPipe implements PipeTransform {
    * Formata o valor octal agrupando os números em 3 digitos
    * e cada grupo separado por um caractere de espaço.
    * Exemplo
-   * {{ '22244004355245 ' | basesNumericas: 8 }}
+   * {{ '22244004355245' | basesNumericas: 8 }}
    * formata para: '22 244 004 355 245'
    * @param valorOriginal - valor octal que será formatado.
    * @returns valor octal formatado.
@@ -55,13 +57,26 @@ export class BasesNumericasPipe implements PipeTransform {
    * Formata o valor decimal agrupando os números em 3 digitos
    * e cada grupo separado por um caractere de ponto (.) .
    * Exemplo
-   * {{ '1258963458725 ' | basesNumericas: 10 }}
+   * {{ '1258963458725' | basesNumericas: 10 }}
    * formata para: '1.258.963.458.725'
    * @param valorOriginal - valor decimal que será formatado.
    * @returns valor decimal formatado.
    */
   decimal(valorOriginal: string): string {
     return this.formatador(valorOriginal, false, 3, '.');
+  }
+
+  /**
+   * Formata o valor hexadecimal agrupando os números em 4 digitos
+   * e cada grupo separado por um caractere de espaço.
+   * Exemplo
+   * {{ 'F36E2D7' | basesNumericas: 16 }}
+   * formata para: 'F36 E2D7'
+   * @param valorOriginal - valor hexadecimal que será formatado.
+   * @returns valor hexadecimal formatado.
+   */
+  hexadecimal(valorOriginal: string): string {
+    return this.formatador(valorOriginal, false, 4, ' ');
   }
 
   /**
