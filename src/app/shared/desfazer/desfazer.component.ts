@@ -40,6 +40,10 @@ export class DesfazerComponent implements OnInit, OnDestroy {
 
   constructor(private desfazerService: DesfazerService) { }
 
+  /**
+   * Se increve no DesfazerService, para que seja feita a comunicação entre este componente
+   * e o DesfazerService.
+   */
   ngOnInit(): void {
     this.subscription = this.desfazerService.exibirDesfazer$.subscribe(
       info => {
@@ -84,6 +88,9 @@ export class DesfazerComponent implements OnInit, OnDestroy {
     })
   }
 
+  /**
+   * Desfaz a inscrição em DesfazerService e limpa os timers dos objetos Desfazer.
+   */
   ngOnDestroy(): void {
     this.listaDeObjetosDesfazer.forEach(d => {
       if(d.timer) clearTimeout(d.timer);
