@@ -1,15 +1,17 @@
-import { Directive, HostBinding, ElementRef, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Directive, HostBinding, ElementRef, OnChanges, SimpleChanges, Input, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appSmoothHeightChange]'
 })
-export class SmoothHeightChangeDirective implements OnChanges{
+export class SmoothHeightChangeDirective implements OnInit, OnChanges{
 
   @Input() appSmoothHeightChange: any;
   @HostBinding('@smoothHeight') smoothHeight: any;
   currentHeight: number;
 
-  constructor(private elemento: ElementRef) {
+  constructor(private elemento: ElementRef) {}
+
+  ngOnInit(): void {
     this.alteraEstadoDaAnimacao();
   }
 
