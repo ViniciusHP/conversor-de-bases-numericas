@@ -4,6 +4,9 @@ import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
   converterAlgarismoHexadecimalParaDecimal, removerZerosAEsquerda,
   removeSinalPositivo } from './conversor-helper'
 
+/**
+ * Serviço que converte os valores das bases numéricas.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -28,18 +31,30 @@ export class ConversorService {
     this.converterHexadecimalParaOctal = this.converterHexadecimalParaOctal.bind(this);
   }
 
+  /**
+   * Padrão de um número positivo na base binária
+   */
   get patternBinario(): string {
     return '^[+]?[0-1]+';
   }
 
+  /**
+   * Padrão de um número positivo na base decimal
+   */
   get patternDecimal(): string {
     return '^[+]?[0-9]+';
   }
 
+  /**
+   * Padrão de um número positivo na base octal
+   */
   get patternOctal(): string {
     return '^[+]?[0-7]+';
   }
 
+  /**
+   * Padrão de um número positivo na base hexadecimal
+   */
   get patternHexadecimal(): string {
     return '^[+]?[a-fA-F0-9]+';
   }
@@ -263,6 +278,11 @@ export class ConversorService {
       });
   }
 
+  /**
+   * Remove sinal positivo do valor
+   * @param valor - Valor original
+   * @returns Valor sem sinal positivo
+   */
   private remocaoDeSinais(valor: string): Promise<string> {
     return Promise.resolve(removeSinalPositivo(valor));
   }
