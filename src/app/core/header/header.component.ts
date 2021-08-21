@@ -1,22 +1,25 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { hoverColor } from 'src/app/animations/animations';
 
+/**
+ * Componente do cabeçalho da aplicação.
+ */
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   animations: [hoverColor]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent{
 
   @Output()
   onMenuClick = new EventEmitter<void>();
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Emite evento quando o botão de menu é clicado.
+   */
   emitirEventoMenuClick() {
     this.onMenuClick.emit();
   }
