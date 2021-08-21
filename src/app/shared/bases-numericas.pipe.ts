@@ -15,6 +15,8 @@ export class BasesNumericasPipe implements PipeTransform {
     switch(base) {
       case 2:
         return this.binaria(valor);
+      case 8:
+        return this.octal(valor);
       default:
         return valor;
     }
@@ -34,11 +36,26 @@ export class BasesNumericasPipe implements PipeTransform {
   }
 
   /**
+   * Formata o valor octal agrupando os números em 3 digitos
+   * e cada grupo separado por um caractere de espaço.
+   * Exemplo
+   * {{ '22244004355245 ' | basesNumericas: 8 }}
+   * formata para: '22 244 004 355 245'
+   * @param valorOriginal - valor octal que será formatado.
+   */
+  octal(valorOriginal: string): string {
+    return this.formatador(valorOriginal, false, 3, ' ');
+  }
+
+  /**
    * Executa a transformação do valor.
    *
    * Exemplo
    *  this.formatador('111111111', true, 4, ' ');
-   *  retornará: 0001 1111 1111
+   *  retornará: '0001 1111 1111'
+   *
+   *  this.formatador('22244004355245', false, 3, ' ');
+   *  retornará: '22 244 004 355 245'
    *
    * @param valorOriginal - Valor passado para a pipe
    * @param adicionarZerosAEsquerda - Flag que indica se deve ser adicionado zeros a esquerda.
@@ -51,8 +68,10 @@ export class BasesNumericasPipe implements PipeTransform {
     numeroDeDigitosAgrupados: number,
     separadorEntreDigitosAgrupados: string) : string {
 
+    // Converte a string em um array com cada digito
     const todosOsDigitos: string[] = valorOriginal.split('');
 
+    // Adiciona os zeros a esquerda
     if(adicionarZerosAEsquerda){
       let quantidadeDeDigitosFaltantes =  numeroDeDigitosAgrupados - (valorOriginal.length % numeroDeDigitosAgrupados);
       quantidadeDeDigitosFaltantes = quantidadeDeDigitosFaltantes >= numeroDeDigitosAgrupados ? 0 : quantidadeDeDigitosFaltantes;
@@ -60,12 +79,19 @@ export class BasesNumericasPipe implements PipeTransform {
       todosOsDigitos.splice(0, 0, ...numerosFaltantes);
     }
 
-    return todosOsDigitos.reduce((valorFinal, digitoAtual, indice) => {
+    // Inverte o array dos digitos
+    todosOsDigitos.reverse();
+
+    // Coloca o separador de digitos especificado e retorna como uma string
+    const valorFinalInvertido: string = todosOsDigitos.reduce((valorFinal, digitoAtual, indice) => {
       if(indice % numeroDeDigitosAgrupados === 0){
         return `${valorFinal}${separadorEntreDigitosAgrupados}${digitoAtual}`;
       }
       return `${valorFinal}${digitoAtual}`;
-    }, '');
+    });
+
+    // Realiza a inversão dos digitos novamente
+    return valorFinalInvertido.split('').reverse().join('');
   }
 
 }
