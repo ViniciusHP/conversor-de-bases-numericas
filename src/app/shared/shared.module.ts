@@ -4,13 +4,15 @@ import { DesfazerComponent } from './desfazer/desfazer.component';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { BotaoCopiarComponent } from './botao-copiar/botao-copiar.component';
+import { BasesNumericasPipe } from './bases-numericas.pipe';
 
 
 
 @NgModule({
   declarations: [
     DesfazerComponent,
-    BotaoCopiarComponent
+    BotaoCopiarComponent,
+    BasesNumericasPipe
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { BotaoCopiarComponent } from './botao-copiar/botao-copiar.component';
   ],
   exports: [
     DesfazerComponent,
-    BotaoCopiarComponent
+    BotaoCopiarComponent,
+    BasesNumericasPipe
   ]
 })
 export class SharedModule { }
