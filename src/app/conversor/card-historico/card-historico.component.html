@@ -3,14 +3,14 @@
     <div class="container-informacao p-col-9 p-grid p-flex-wrap">
       <div class="container-inicial p-col-12 p-sm-5">
         <div class="nome-base">{{historico.baseInicial}}</div>
-        <div class="fonte-numero numero">{{historico.valorInicial}}</div>
+        <div class="fonte-numero numero">{{historico.valorInicial | basesNumericas: paramPipeValorInicial}}</div>
       </div>
       <div class="p-as-center p-col-12 p-sm-2 p-text-center">
         <i class="pi pi-arrow-right icone-flecha"></i>
       </div>
       <div class="container-final p-col-12 p-sm-5">
         <div class="nome-base">{{historico.baseFinal}}</div>
-        <div class="fonte-numero numero">{{historico.valorFinal}}</div>
+        <div class="fonte-numero numero">{{historico.valorFinal | basesNumericas: paramPipeValorFinal}}</div>
       </div>
     </div>
     <div class="p-col-3 p-sm-2 p-md-1 p-grid p-jc-center">
