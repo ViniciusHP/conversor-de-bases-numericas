@@ -17,6 +17,8 @@ export class BasesNumericasPipe implements PipeTransform {
         return this.binaria(valor);
       case 8:
         return this.octal(valor);
+      case 10:
+        return this.decimal(valor);
       default:
         return valor;
     }
@@ -30,6 +32,7 @@ export class BasesNumericasPipe implements PipeTransform {
    * {{ '110101110' | basesNumericas: 2 }}
    * formata para: '0001 1010 1110'
    * @param valorOriginal - valor binário que será formatado.
+   * @returns valor binário formatado.
    */
   binaria(valorOriginal: string): string {
     return this.formatador(valorOriginal, true, 4, ' ');
@@ -42,9 +45,23 @@ export class BasesNumericasPipe implements PipeTransform {
    * {{ '22244004355245 ' | basesNumericas: 8 }}
    * formata para: '22 244 004 355 245'
    * @param valorOriginal - valor octal que será formatado.
+   * @returns valor octal formatado.
    */
   octal(valorOriginal: string): string {
     return this.formatador(valorOriginal, false, 3, ' ');
+  }
+
+  /**
+   * Formata o valor decimal agrupando os números em 3 digitos
+   * e cada grupo separado por um caractere de ponto (.) .
+   * Exemplo
+   * {{ '1258963458725 ' | basesNumericas: 10 }}
+   * formata para: '1.258.963.458.725'
+   * @param valorOriginal - valor decimal que será formatado.
+   * @returns valor decimal formatado.
+   */
+  decimal(valorOriginal: string): string {
+    return this.formatador(valorOriginal, false, 3, '.');
   }
 
   /**
