@@ -123,31 +123,29 @@ export class ConversorService {
     return inverterOrdemDosNumeros(valorFinalInvertido);
   }
 
-  converterDecimalParaBinario(valorDecimal: string): Promise<string> {
-    return this.remocaoDeSinais(valorDecimal)
-      .then((valorDecimalSemSinal: string) => {
-        let valor = Number(valorDecimalSemSinal);
-        const divisor = 2;
-        if(valor < 2){
-          return valor.toString();
-        }
+  async converterDecimalParaBinario(valorDecimal: string): Promise<string> {
+    const valorDecimalSemSinal = await this.remocaoDeSinais(valorDecimal);
+    let valor = Number(valorDecimalSemSinal);
+    const divisor = 2;
+    if(valor < 2){
+      return valor.toString();
+    }
 
-        let valorBinarioInvertido = '';
+    let valorBinarioInvertido = '';
 
-        while(valor >= divisor) {
-          const resto = valor % divisor;
-          const quociente = Math.floor(valor / divisor);
-          valorBinarioInvertido += resto.toString();
+    while(valor >= divisor) {
+      const resto = valor % divisor;
+      const quociente = Math.floor(valor / divisor);
+      valorBinarioInvertido += resto.toString();
 
-          if(quociente == 1){
-            valorBinarioInvertido += quociente.toString();
-          }
+      if(quociente == 1){
+        valorBinarioInvertido += quociente.toString();
+      }
 
-          valor = quociente;
-        }
+      valor = quociente;
+    }
 
-        return inverterOrdemDosNumeros(valorBinarioInvertido);
-      });
+    return inverterOrdemDosNumeros(valorBinarioInvertido);
   }
 
   converterDecimalParaOctal(valorDecimal: string): Promise<string> {
