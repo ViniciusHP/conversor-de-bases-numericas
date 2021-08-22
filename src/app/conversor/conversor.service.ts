@@ -64,12 +64,11 @@ export class ConversorService {
       let soma = 0;
 
       const valorOctalInvertido = valorBinarioSemSinal.split('')
-        .reverse()
-        .reduce((acumuladorOctalInvertido, digitoBinario, indice, arrayDigitos) => {
+        .reduceRight((acumuladorOctalInvertido, digitoBinario, indice) => {
           soma += (Number(digitoBinario) * Math.pow(2, expoente));
           expoente++;
 
-          if(expoente === 3 || indice === arrayDigitos.length - 1){
+          if(expoente === 3 || indice === 0){
             acumuladorOctalInvertido = `${acumuladorOctalInvertido}${soma.toString()}`;
             expoente = 0;
             soma = 0;
@@ -87,8 +86,7 @@ export class ConversorService {
     let expoente = 0;
 
     const somaFinal = valorBinarioSemSinal.split('')
-      .reverse()
-      .reduce((soma, digitoBinario) => {
+      .reduceRight((soma, digitoBinario) => {
         const algarismo = Number(digitoBinario);
         soma += Math.pow(base, expoente) * algarismo;
         expoente++;
@@ -105,12 +103,11 @@ export class ConversorService {
     let soma = 0;
 
     const valorHexadecimalInvertido = valorBinarioSemSinal.split('')
-      .reverse()
-      .reduce((acumuladorHexadecimalInvertido, digitoBinario, indice, arrayDigitos) => {
+      .reduceRight((acumuladorHexadecimalInvertido, digitoBinario, indice) => {
         soma += (Number(digitoBinario) * Math.pow(2, expoente));
         expoente++;
 
-        if(expoente === 4 || indice === arrayDigitos.length - 1){
+        if(expoente === 4 || indice === 0){
           const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
           acumuladorHexadecimalInvertido = `${acumuladorHexadecimalInvertido}${algarismoHexadecimal}`;
           expoente = 0;
@@ -201,8 +198,7 @@ export class ConversorService {
   async converterOctalParaBinario(valorOctal: string): Promise<string> {
     const valorOctalSemSinal = this.remocaoDeSinais(valorOctal);
     const valorBinario = valorOctalSemSinal.split('')
-      .reverse()
-      .reduce((acumuladorBinario, digitoOctal) => {
+      .reduceRight((acumuladorBinario, digitoOctal) => {
         const binario = converterAlgarismoOctalParaBinario(digitoOctal);
         return `${binario}${acumuladorBinario}`;
       }, '');
@@ -215,8 +211,7 @@ export class ConversorService {
     let expoente = 0;
 
     const soma = valorOctalSemSinal.split('')
-      .reverse()
-      .reduce((acumuladorSoma, digitoOctal) => {
+      .reduceRight((acumuladorSoma, digitoOctal) => {
         const algarismo = Number(digitoOctal);
         acumuladorSoma += (Math.pow(8, expoente) * algarismo);
         expoente++;
@@ -235,8 +230,7 @@ export class ConversorService {
     const valorHexadecimalSemSinal = this.remocaoDeSinais(valorHexadecimal);
 
     const valorBinario = valorHexadecimalSemSinal.split('')
-      .reverse()
-      .reduce((acumuladorBinario, digitoHexadecimal) => {
+      .reduceRight((acumuladorBinario, digitoHexadecimal) => {
         let binario = converterAlgarismoHexadecimalParaBinario(digitoHexadecimal);
         return `${binario}${acumuladorBinario}`;
       }, '');
@@ -253,8 +247,7 @@ export class ConversorService {
     const valorHexadecimalSemSinal = this.remocaoDeSinais(valorHexadecimal);
     let expoente = 0;
     const soma = valorHexadecimalSemSinal.split('')
-      .reverse()
-      .reduce((acumuladorSoma, digitoHexadecimal) => {
+      .reduceRight((acumuladorSoma, digitoHexadecimal) => {
         const algarismoDecimal = Number(converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal));
         acumuladorSoma += (Math.pow(16, expoente) * algarismoDecimal);
         expoente++;
