@@ -148,31 +148,29 @@ export class ConversorService {
     return inverterOrdemDosNumeros(valorBinarioInvertido);
   }
 
-  converterDecimalParaOctal(valorDecimal: string): Promise<string> {
-    return this.remocaoDeSinais(valorDecimal)
-      .then((valorDecimalSemSinal: string) => {
-        let valor = Number(valorDecimalSemSinal);
-        const divisor = 8;
-        if(valor < 8){
-          return valor.toString();
-        }
+  async converterDecimalParaOctal(valorDecimal: string): Promise<string> {
+    const valorDecimalSemSinal = await this.remocaoDeSinais(valorDecimal);
+    let valor = Number(valorDecimalSemSinal);
+    const divisor = 8;
+    if(valor < 8){
+      return valor.toString();
+    }
 
-        let valorOctalInvertido = '';
+    let valorOctalInvertido = '';
 
-        while(valor >= divisor) {
-          const resto = valor % divisor;
-          const quociente = Math.floor(valor / divisor);
-          valorOctalInvertido += resto.toString();
+    while(valor >= divisor) {
+      const resto = valor % divisor;
+      const quociente = Math.floor(valor / divisor);
+      valorOctalInvertido += resto.toString();
 
-          if(quociente < 8){
-            valorOctalInvertido += quociente.toString();
-          }
+      if(quociente < 8){
+        valorOctalInvertido += quociente.toString();
+      }
 
-          valor = quociente;
-        }
+      valor = quociente;
+    }
 
-        return inverterOrdemDosNumeros(valorOctalInvertido);
-      });
+    return inverterOrdemDosNumeros(valorOctalInvertido);
   }
 
   converterDecimalParaHexadecimal(valorDecimal: string): Promise<string> {
