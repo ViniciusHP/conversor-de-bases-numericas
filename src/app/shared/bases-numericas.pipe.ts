@@ -100,12 +100,12 @@ export class BasesNumericasPipe implements PipeTransform {
     numeroDeDigitosAgrupados: number,
     separadorEntreDigitosAgrupados: string) : string {
 
-    // Converte a string em um array com cada digito
-    const todosOsDigitos: string[] = valorOriginal.split('');
+    // Remove sinal de mais e converte a string em um array com cada digito
+    const todosOsDigitos: string[] = valorOriginal.replace(/\+/g, '').split('');
 
     // Adiciona os zeros a esquerda
     if(adicionarZerosAEsquerda){
-      let quantidadeDeDigitosFaltantes =  numeroDeDigitosAgrupados - (valorOriginal.length % numeroDeDigitosAgrupados);
+      let quantidadeDeDigitosFaltantes =  numeroDeDigitosAgrupados - (todosOsDigitos.length % numeroDeDigitosAgrupados);
       quantidadeDeDigitosFaltantes = quantidadeDeDigitosFaltantes >= numeroDeDigitosAgrupados ? 0 : quantidadeDeDigitosFaltantes;
       const numerosFaltantes: string[] = new Array(quantidadeDeDigitosFaltantes).fill('0');
       todosOsDigitos.splice(0, 0, ...numerosFaltantes);
