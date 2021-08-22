@@ -249,20 +249,20 @@ export class ConversorService {
     return this.converterBinarioParaOctal(valorBinario);
   }
 
-  converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
-    return this.remocaoDeSinais(valorHexadecimal)
-      .then((valorHexadecimalSemSinal: string) => {
-        const indiceFinal = valorHexadecimalSemSinal.length - 1;
-        let expoente = 0;
-        let soma = 0;
-        for(let indice = indiceFinal; indice >= 0; indice--) {
-          const algarismoHexadecimal = valorHexadecimalSemSinal.charAt(indice);
-          const algarismoDecimal = Number(converterAlgarismoHexadecimalParaDecimal(algarismoHexadecimal));
-          soma += (Math.pow(16, expoente) * algarismoDecimal);
-          expoente++;
-        }
-        return soma.toString();
-      });
+  async converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
+    const valorHexadecimalSemSinal = await this.remocaoDeSinais(valorHexadecimal);
+    let expoente = 0;
+    const soma = valorHexadecimalSemSinal.split('')
+      .reverse()
+      .reduce((acumuladorSoma, digitoHexadecimal) => {
+        const algarismoDecimal = Number(converterAlgarismoHexadecimalParaDecimal(digitoHexadecimal));
+        acumuladorSoma += (Math.pow(16, expoente) * algarismoDecimal);
+        expoente++;
+
+        return acumuladorSoma;
+      }, 0);
+
+    return soma.toString();
   }
 
   /**
