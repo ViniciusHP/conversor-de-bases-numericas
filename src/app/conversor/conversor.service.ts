@@ -231,19 +231,17 @@ export class ConversorService {
     return this.converterBinarioParaHexadecimal(valorBinario);
   }
 
-  converterHexadecimalParaBinario(valorHexadecimal: string): Promise<string> {
-    return this.remocaoDeSinais(valorHexadecimal)
-      .then((valorHexadecimalSemSinal: string) => {
-        const indiceFinal = valorHexadecimalSemSinal.length - 1;
-        let valorBinario = '';
-        for(let indice = indiceFinal; indice >= 0; indice--) {
-          let algarismo = valorHexadecimalSemSinal.charAt(indice);
-          let binario = converterAlgarismoHexadecimalParaBinario(algarismo);
-          valorBinario = binario.concat(valorBinario);
-        }
+  async converterHexadecimalParaBinario(valorHexadecimal: string): Promise<string> {
+    const valorHexadecimalSemSinal = await this.remocaoDeSinais(valorHexadecimal);
 
-        return removerZerosAEsquerda(valorBinario);
-      });
+    const valorBinario = valorHexadecimalSemSinal.split('')
+      .reverse()
+      .reduce((acumuladorBinario, digitoHexadecimal) => {
+        let binario = converterAlgarismoHexadecimalParaBinario(digitoHexadecimal);
+        return `${binario}${acumuladorBinario}`;
+      }, '');
+
+    return removerZerosAEsquerda(valorBinario);
   }
 
   converterHexadecimalParaOctal(valorHexadecimal: string): Promise<string> {
