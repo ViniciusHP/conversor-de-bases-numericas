@@ -63,22 +63,22 @@ export class ConversorService {
       let expoente = 0;
       let soma = 0;
 
-      const valorFinalInvertido = valorBinarioSemSinal.split('')
+      const valorOctalInvertido = valorBinarioSemSinal.split('')
         .reverse()
-        .reduce((valorOctalInvertido, digito, indice, arrayDigitos) => {
-          soma += (Number(digito) * Math.pow(2, expoente));
+        .reduce((acumuladorOctalInvertido, digitoBinario, indice, arrayDigitos) => {
+          soma += (Number(digitoBinario) * Math.pow(2, expoente));
           expoente++;
 
           if(expoente === 3 || indice === arrayDigitos.length - 1){
-            valorOctalInvertido = `${valorOctalInvertido}${soma.toString()}`;
+            acumuladorOctalInvertido = `${acumuladorOctalInvertido}${soma.toString()}`;
             expoente = 0;
             soma = 0;
           }
 
-          return valorOctalInvertido;
+          return acumuladorOctalInvertido;
       }, '');
 
-      return inverterOrdemDosNumeros(valorFinalInvertido);
+      return inverterOrdemDosNumeros(valorOctalInvertido);
   }
 
   async converterBinarioParaDecimal(valorBinario: string): Promise<string> {
@@ -88,8 +88,8 @@ export class ConversorService {
 
     const somaFinal = valorBinarioSemSinal.split('')
       .reverse()
-      .reduce((soma, digito) => {
-        const algarismo = Number(digito);
+      .reduce((soma, digitoBinario) => {
+        const algarismo = Number(digitoBinario);
         soma += Math.pow(base, expoente) * algarismo;
         expoente++;
 
@@ -104,23 +104,23 @@ export class ConversorService {
     let expoente = 0;
     let soma = 0;
 
-    const valorFinalInvertido = valorBinarioSemSinal.split('')
+    const valorHexadecimalInvertido = valorBinarioSemSinal.split('')
       .reverse()
-      .reduce((valorHexadecimalInvertido, digito, indice, arrayDigitos) => {
-        soma += (Number(digito) * Math.pow(2, expoente));
+      .reduce((acumuladorHexadecimalInvertido, digitoBinario, indice, arrayDigitos) => {
+        soma += (Number(digitoBinario) * Math.pow(2, expoente));
         expoente++;
 
         if(expoente === 4 || indice === arrayDigitos.length - 1){
           const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
-          valorHexadecimalInvertido = `${valorHexadecimalInvertido}${algarismoHexadecimal}`;
+          acumuladorHexadecimalInvertido = `${acumuladorHexadecimalInvertido}${algarismoHexadecimal}`;
           expoente = 0;
           soma = 0;
         }
 
-        return valorHexadecimalInvertido;
+        return acumuladorHexadecimalInvertido;
       }, '');
 
-    return inverterOrdemDosNumeros(valorFinalInvertido);
+    return inverterOrdemDosNumeros(valorHexadecimalInvertido);
   }
 
   async converterDecimalParaBinario(valorDecimal: string): Promise<string> {
