@@ -210,20 +210,20 @@ export class ConversorService {
     return removerZerosAEsquerda(valorBinario);
   }
 
-  converterOctalParaDecimal(valorOctal: string): Promise<string> {
-    return this.remocaoDeSinais(valorOctal)
-      .then((valorOctalSemSinal: string) => {
-        const indiceFinal = valorOctalSemSinal.length - 1;
-        let expoente = 0;
-        let soma = 0;
-        for(let indice = indiceFinal; indice >= 0; indice--){
-          let algarismo = Number(valorOctalSemSinal.charAt(indice));
-          soma += (Math.pow(8, expoente) * algarismo);
-          expoente++;
-        }
+  async converterOctalParaDecimal(valorOctal: string): Promise<string> {
+    const valorOctalSemSinal = await this.remocaoDeSinais(valorOctal);
+    let expoente = 0;
 
-        return soma.toString();
-      });
+    const soma = valorOctalSemSinal.split('')
+      .reverse()
+      .reduce((acumuladorSoma, digitoOctal) => {
+        const algarismo = Number(digitoOctal);
+        acumuladorSoma += (Math.pow(8, expoente) * algarismo);
+        expoente++;
+        return acumuladorSoma;
+      }, 0);
+
+    return soma.toString();
   }
 
   converterOctalParaHexadecimal(valorOctal: string): Promise<string> {
