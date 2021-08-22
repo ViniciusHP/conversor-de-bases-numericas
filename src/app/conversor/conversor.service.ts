@@ -226,9 +226,9 @@ export class ConversorService {
     return soma.toString();
   }
 
-  converterOctalParaHexadecimal(valorOctal: string): Promise<string> {
-    return this.converterOctalParaBinario(valorOctal)
-      .then((valorBinario: string) => this.converterBinarioParaHexadecimal(valorBinario));
+  async converterOctalParaHexadecimal(valorOctal: string): Promise<string> {
+    const valorBinario = await this.converterOctalParaBinario(valorOctal);
+    return this.converterBinarioParaHexadecimal(valorBinario);
   }
 
   converterHexadecimalParaBinario(valorHexadecimal: string): Promise<string> {
