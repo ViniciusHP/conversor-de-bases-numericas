@@ -99,29 +99,28 @@ export class ConversorService {
     return somaFinal.toString();
   }
 
-  converterBinarioParaHexadecimal(valorBinario: string): Promise<string> {
-    return this.remocaoDeSinais(valorBinario)
-      .then((valorBinarioSemSinal: string) => {
-        let expoente = 0;
-        const indiceFinal = valorBinarioSemSinal.length - 1;
-        let soma = 0;
+  async converterBinarioParaHexadecimal(valorBinario: string): Promise<string> {
+    const valorBinarioSemSinal = await this.remocaoDeSinais(valorBinario);
+    let expoente = 0;
+    let soma = 0;
 
-        let valorHexadecimalInvertido = '';
+    const valorFinalInvertido = valorBinarioSemSinal.split('')
+      .reverse()
+      .reduce((valorHexadecimalInvertido, digito, indice, arrayDigitos) => {
+        soma += (Number(digito) * Math.pow(2, expoente));
+        expoente++;
 
-        for(let indice = indiceFinal; indice >= 0; indice--) {
-          soma += (Number(valorBinarioSemSinal.charAt(indice)) * Math.pow(2, expoente));
-          expoente++;
-
-          if(expoente == 4 || indice == 0){
-            const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
-            valorHexadecimalInvertido = valorHexadecimalInvertido.concat(algarismoHexadecimal);
-            expoente = 0;
-            soma = 0;
-          }
+        if(expoente === 4 || indice === arrayDigitos.length - 1){
+          const algarismoHexadecimal = converterAlgarismoDecimalParaHexadecimal(soma.toString());
+          valorHexadecimalInvertido = `${valorHexadecimalInvertido}${algarismoHexadecimal}`;
+          expoente = 0;
+          soma = 0;
         }
 
-        return inverterOrdemDosNumeros(valorHexadecimalInvertido);
-      })
+        return valorHexadecimalInvertido;
+      }, '');
+
+    return inverterOrdemDosNumeros(valorFinalInvertido);
   }
 
   converterDecimalParaBinario(valorDecimal: string): Promise<string> {
