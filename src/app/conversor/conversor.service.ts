@@ -244,9 +244,9 @@ export class ConversorService {
     return removerZerosAEsquerda(valorBinario);
   }
 
-  converterHexadecimalParaOctal(valorHexadecimal: string): Promise<string> {
-    return this.converterHexadecimalParaBinario(valorHexadecimal)
-      .then((valorBinario: string) => this.converterBinarioParaOctal(valorBinario));
+  async converterHexadecimalParaOctal(valorHexadecimal: string): Promise<string> {
+    const valorBinario = await this.converterHexadecimalParaBinario(valorHexadecimal);
+    return this.converterBinarioParaOctal(valorBinario);
   }
 
   converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
