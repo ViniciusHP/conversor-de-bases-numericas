@@ -76,7 +76,7 @@ export class BasesNumericasPipe implements PipeTransform {
    * @returns valor hexadecimal formatado.
    */
   hexadecimal(valorOriginal: string): string {
-    return this.formatador(valorOriginal, false, 4, ' ');
+    return this.formatador(valorOriginal.toUpperCase(), false, 4, ' ');
   }
 
   /**
