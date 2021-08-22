@@ -59,7 +59,7 @@ export class ConversorService {
   }
 
   async converterBinarioParaOctal(valorBinario: string): Promise<string> {
-      const valorBinarioSemSinal = await this.remocaoDeSinais(valorBinario);
+      const valorBinarioSemSinal = this.remocaoDeSinais(valorBinario);
       let expoente = 0;
       let soma = 0;
 
@@ -82,7 +82,7 @@ export class ConversorService {
   }
 
   async converterBinarioParaDecimal(valorBinario: string): Promise<string> {
-    const valorBinarioSemSinal = await this.remocaoDeSinais(valorBinario);
+    const valorBinarioSemSinal = this.remocaoDeSinais(valorBinario);
     const base = 2;
     let expoente = 0;
 
@@ -100,7 +100,7 @@ export class ConversorService {
   }
 
   async converterBinarioParaHexadecimal(valorBinario: string): Promise<string> {
-    const valorBinarioSemSinal = await this.remocaoDeSinais(valorBinario);
+    const valorBinarioSemSinal = this.remocaoDeSinais(valorBinario);
     let expoente = 0;
     let soma = 0;
 
@@ -124,7 +124,7 @@ export class ConversorService {
   }
 
   async converterDecimalParaBinario(valorDecimal: string): Promise<string> {
-    const valorDecimalSemSinal = await this.remocaoDeSinais(valorDecimal);
+    const valorDecimalSemSinal = this.remocaoDeSinais(valorDecimal);
     let valor = Number(valorDecimalSemSinal);
     const divisor = 2;
     if(valor < 2){
@@ -149,7 +149,7 @@ export class ConversorService {
   }
 
   async converterDecimalParaOctal(valorDecimal: string): Promise<string> {
-    const valorDecimalSemSinal = await this.remocaoDeSinais(valorDecimal);
+    const valorDecimalSemSinal = this.remocaoDeSinais(valorDecimal);
     let valor = Number(valorDecimalSemSinal);
     const divisor = 8;
     if(valor < 8){
@@ -174,7 +174,7 @@ export class ConversorService {
   }
 
   async converterDecimalParaHexadecimal(valorDecimal: string): Promise<string> {
-    const valorDecimalSemSinal = await this.remocaoDeSinais(valorDecimal);
+    const valorDecimalSemSinal = this.remocaoDeSinais(valorDecimal);
     let valor = Number(valorDecimalSemSinal);
     const divisor = 16;
     if(valor < 16){
@@ -199,7 +199,7 @@ export class ConversorService {
   }
 
   async converterOctalParaBinario(valorOctal: string): Promise<string> {
-    const valorOctalSemSinal = await this.remocaoDeSinais(valorOctal);
+    const valorOctalSemSinal = this.remocaoDeSinais(valorOctal);
     const valorBinario = valorOctalSemSinal.split('')
       .reverse()
       .reduce((acumuladorBinario, digitoOctal) => {
@@ -211,7 +211,7 @@ export class ConversorService {
   }
 
   async converterOctalParaDecimal(valorOctal: string): Promise<string> {
-    const valorOctalSemSinal = await this.remocaoDeSinais(valorOctal);
+    const valorOctalSemSinal = this.remocaoDeSinais(valorOctal);
     let expoente = 0;
 
     const soma = valorOctalSemSinal.split('')
@@ -232,7 +232,7 @@ export class ConversorService {
   }
 
   async converterHexadecimalParaBinario(valorHexadecimal: string): Promise<string> {
-    const valorHexadecimalSemSinal = await this.remocaoDeSinais(valorHexadecimal);
+    const valorHexadecimalSemSinal = this.remocaoDeSinais(valorHexadecimal);
 
     const valorBinario = valorHexadecimalSemSinal.split('')
       .reverse()
@@ -250,7 +250,7 @@ export class ConversorService {
   }
 
   async converterHexadecimalParaDecimal(valorHexadecimal: string) : Promise<string> {
-    const valorHexadecimalSemSinal = await this.remocaoDeSinais(valorHexadecimal);
+    const valorHexadecimalSemSinal = this.remocaoDeSinais(valorHexadecimal);
     let expoente = 0;
     const soma = valorHexadecimalSemSinal.split('')
       .reverse()
@@ -270,7 +270,7 @@ export class ConversorService {
    * @param valor - Valor original
    * @returns Valor sem sinal positivo
    */
-  private remocaoDeSinais(valor: string): Promise<string> {
-    return Promise.resolve(removeSinalPositivo(valor));
+  private remocaoDeSinais(valor: string): string {
+    return removeSinalPositivo(valor);
   }
 }
