@@ -81,22 +81,22 @@ export class ConversorService {
       return inverterOrdemDosNumeros(valorFinalInvertido);
   }
 
-  converterBinarioParaDecimal(valorBinario: string): Promise<string> {
-    return this.remocaoDeSinais(valorBinario)
-      .then((valorBinarioSemSinal: string) => {
-        const base = 2;
-        let expoente = 0;
-        const indiceFinal = valorBinarioSemSinal.length - 1;
-        let soma = 0;
+  async converterBinarioParaDecimal(valorBinario: string): Promise<string> {
+    const valorBinarioSemSinal = await this.remocaoDeSinais(valorBinario);
+    const base = 2;
+    let expoente = 0;
 
-        for(let indice = indiceFinal; indice >= 0; indice--) {
-          const algarismo = Number(valorBinarioSemSinal.charAt(indice));
-          soma += Math.pow(base, expoente) * algarismo;
-          expoente++;
-        }
+    const somaFinal = valorBinarioSemSinal.split('')
+      .reverse()
+      .reduce((soma, digito) => {
+        const algarismo = Number(digito);
+        soma += Math.pow(base, expoente) * algarismo;
+        expoente++;
 
-        return soma.toString();
-      });
+        return soma;
+      }, 0);
+
+    return somaFinal.toString();
   }
 
   converterBinarioParaHexadecimal(valorBinario: string): Promise<string> {
