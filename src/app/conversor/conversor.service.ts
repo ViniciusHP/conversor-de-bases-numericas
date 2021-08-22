@@ -13,7 +13,6 @@ import { inverterOrdemDosNumeros, converterAlgarismoDecimalParaHexadecimal,
 export class ConversorService {
 
   constructor() {
-    // Fazendo binding do this
     this.converterBinarioParaDecimal = this.converterBinarioParaDecimal.bind(this);
     this.converterBinarioParaOctal = this.converterBinarioParaOctal.bind(this);
     this.converterBinarioParaHexadecimal = this.converterBinarioParaHexadecimal.bind(this);
@@ -59,28 +58,27 @@ export class ConversorService {
     return '^[+]?[a-fA-F0-9]+';
   }
 
-  converterBinarioParaOctal(valorBinario: string): Promise<string> {
-    return this.remocaoDeSinais(valorBinario)
-      .then((valorBinarioSemSinal: string) => {
-        let expoente = 0;
-        const indiceFinal = valorBinarioSemSinal.length - 1;
-        let soma = 0;
+  async converterBinarioParaOctal(valorBinario: string): Promise<string> {
+      const valorBinarioSemSinal = await this.remocaoDeSinais(valorBinario);
+      let expoente = 0;
+      let soma = 0;
 
-        let valorOctalInvertido = '';
-
-        for(let indice = indiceFinal; indice >= 0; indice--) {
-          soma += (Number(valorBinarioSemSinal.charAt(indice)) * Math.pow(2, expoente));
+      const valorFinalInvertido = valorBinarioSemSinal.split('')
+        .reverse()
+        .reduce((valorOctalInvertido, digito, indice, arrayDigitos) => {
+          soma += (Number(digito) * Math.pow(2, expoente));
           expoente++;
 
-          if(expoente == 3 || indice == 0){
-            valorOctalInvertido = valorOctalInvertido.concat(soma.toString());
+          if(expoente === 3 || indice === arrayDigitos.length - 1){
+            valorOctalInvertido = `${valorOctalInvertido}${soma.toString()}`;
             expoente = 0;
             soma = 0;
           }
-        }
 
-        return inverterOrdemDosNumeros(valorOctalInvertido);
-      });
+          return valorOctalInvertido;
+      }, '');
+
+      return inverterOrdemDosNumeros(valorFinalInvertido);
   }
 
   converterBinarioParaDecimal(valorBinario: string): Promise<string> {
