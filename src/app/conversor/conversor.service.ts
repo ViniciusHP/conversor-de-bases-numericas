@@ -198,18 +198,16 @@ export class ConversorService {
     return inverterOrdemDosNumeros(valorHexadecimalInvertido);
   }
 
-  converterOctalParaBinario(valorOctal: string): Promise<string> {
-    return this.remocaoDeSinais(valorOctal)
-      .then((valorOctalSemSinal: string) => {
-        let valorBinario = '';
-        const indiceFinal = valorOctalSemSinal.length - 1;
-        for(let indice = indiceFinal; indice >= 0; indice--){
-          const algarismo = valorOctalSemSinal.charAt(indice);
-          const binario = converterAlgarismoOctalParaBinario(algarismo);
-          valorBinario = binario.concat(valorBinario);
-        }
-        return removerZerosAEsquerda(valorBinario);
-      });
+  async converterOctalParaBinario(valorOctal: string): Promise<string> {
+    const valorOctalSemSinal = await this.remocaoDeSinais(valorOctal);
+    const valorBinario = valorOctalSemSinal.split('')
+      .reverse()
+      .reduce((acumuladorBinario, digitoOctal) => {
+        const binario = converterAlgarismoOctalParaBinario(digitoOctal);
+        return `${binario}${acumuladorBinario}`;
+      }, '');
+
+    return removerZerosAEsquerda(valorBinario);
   }
 
   converterOctalParaDecimal(valorOctal: string): Promise<string> {
