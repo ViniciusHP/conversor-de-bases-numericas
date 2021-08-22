@@ -173,31 +173,29 @@ export class ConversorService {
     return inverterOrdemDosNumeros(valorOctalInvertido);
   }
 
-  converterDecimalParaHexadecimal(valorDecimal: string): Promise<string> {
-    return this.remocaoDeSinais(valorDecimal)
-      .then((valorDecimalSemSinal: string) => {
-        let valor = Number(valorDecimalSemSinal);
-        const divisor = 16;
-        if(valor < 16){
-          return converterAlgarismoDecimalParaHexadecimal(valor.toString());
-        }
+  async converterDecimalParaHexadecimal(valorDecimal: string): Promise<string> {
+    const valorDecimalSemSinal = await this.remocaoDeSinais(valorDecimal);
+    let valor = Number(valorDecimalSemSinal);
+    const divisor = 16;
+    if(valor < 16){
+      return converterAlgarismoDecimalParaHexadecimal(valor.toString());
+    }
 
-        let valorHexadecimalInvertido = '';
+    let valorHexadecimalInvertido = '';
 
-        while(valor >= divisor) {
-          const resto = valor % divisor;
-          const quociente = Math.floor(valor / divisor);
-          valorHexadecimalInvertido += converterAlgarismoDecimalParaHexadecimal(resto.toString());
+    while(valor >= divisor) {
+      const resto = valor % divisor;
+      const quociente = Math.floor(valor / divisor);
+      valorHexadecimalInvertido += converterAlgarismoDecimalParaHexadecimal(resto.toString());
 
-          if(quociente < 16){
-            valorHexadecimalInvertido += converterAlgarismoDecimalParaHexadecimal(quociente.toString());
-          }
+      if(quociente < 16){
+        valorHexadecimalInvertido += converterAlgarismoDecimalParaHexadecimal(quociente.toString());
+      }
 
-          valor = quociente;
-        }
+      valor = quociente;
+    }
 
-        return inverterOrdemDosNumeros(valorHexadecimalInvertido);
-      });
+    return inverterOrdemDosNumeros(valorHexadecimalInvertido);
   }
 
   converterOctalParaBinario(valorOctal: string): Promise<string> {
