@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SidebarService } from 'src/app/core/sidebar.service';
 import { ConversorService } from '../conversor.service';
 import { HistoricoService } from '../historico.service';

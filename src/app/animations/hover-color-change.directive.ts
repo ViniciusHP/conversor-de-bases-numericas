@@ -1,5 +1,8 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 
+/**
+ * Diretiva utilizada para controlar a animação 'hoverColor'
+ */
 @Directive({
   selector: '[appHoverColorChange]'
 })
@@ -12,6 +15,10 @@ export class HoverColorChangeDirective {
 
   constructor() {}
 
+  /**
+   * Altera estado da animação para 'enter',
+   * e passa o parâmetro de cor para animação
+   */
   @HostListener('mouseenter')
   colorir(): void  {
     if(this.estado === 'leave') {
@@ -25,6 +32,10 @@ export class HoverColorChangeDirective {
     }
   }
 
+  /**
+   * Altera estado da animação para 'leave',
+   * e passa o parâmetro de cor para animação
+   */
   @HostListener('mouseleave')
   descolorir(): void  {
     if(this.estado === 'enter'){
