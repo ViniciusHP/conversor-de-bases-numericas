@@ -1,27 +1,86 @@
-# ConversorDeBases
+<h1 align="center">
+<br>
+  <img src="assets/icone.png" alt="Conversor de Bases Numéricas" width="90">
+<br>
+<br>
+Conversor de Bases Numéricas
+</h1>
+<h4 align="center">Status: ✔ Concluído</h4>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+  </a>
+</p>
 
-## Development server
+<div align="center">
+  <img src="assets/demonstracao.gif" alt="Demonstração da aplicação" height="425">
+</div>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+<p align="center">
+ <a href="#-sobre-o-projeto">Sobre o projeto</a> |
+ <a href="#-funcionalidades">Funcionalidades</a> |
+ <a href="#-executando-o-projeto">Executando o projeto</a> |
+ <a href="#-tecnologias">Tecnologias</a> | 
+ <a href="#-licença">Licença</a>
+</p>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Sobre o projeto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Aplicação construída para exercitar o conhecimento em Angular.
+Esta aplicação é um conversor de valores positivos nas bases:
 
-## Running unit tests
+- Binária
+- Octal
+- Decimal
+- Hexadecimal
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Funcionalidades
 
-## Running end-to-end tests
+- [x] Conversão entre as bases binária, octal, decimal, hexadecimal
+- [x] Histórico com as conversões anteriores
+- [x] Habilitar/Desabilitar histórico de conversão
+- [x] Desfazer uma exclusão de item de histórico
+- [x] Ativar/Desativar a opção de desfazer exclusão
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Executando o projeto
 
-## Further help
+### Pré-requisitos
+Antes de começar, é necessário você já tenha as ferramentas [Node.js](https://nodejs.org/en/) e [Git](https://git-scm.com/) instaladas.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Instruções de execução do projeto
+```bash
+# Clone este repositório
+$ git clone https://github.com/ViniciusHP/conversor-de-bases-numericas.git
+
+# Acesse a pasta deste projeto por meio do terminal
+$ cd conversor-de-bases-numericas
+
+# Instale as dependências deste projeto
+$ npm install
+
+# Execute o projeto em modo de desenvolvimento
+$ npm start
+# ou
+$ ng serve
+
+# O servidor de desenvolvimento será iniciado na porta 4200
+# Para acessar o projeto, navegue para http://localhost:4200
+```
+
+## Tecnologias
+
+Este projeto foi construído com as seguintes ferramentas:
+
+- **[Angular](https://angular.io/)**
+- **[PrimeFlex](https://www.primefaces.org/primeflex/)**
+- **[PrimeNG](https://www.primefaces.org/primeng/)**
+- **[TypeScript](https://www.typescriptlang.org/)**
+
+## Licença
+
+Este projeto esta sobe a licença [MIT](./LICENSE).
