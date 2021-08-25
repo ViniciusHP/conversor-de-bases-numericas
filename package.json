@@ -1,6 +1,7 @@
 {
-  "name": "conversor-de-bases",
-  "version": "0.0.0",
+  "name": "conversor-de-bases-numericas",
+  "version": "1.0.0",
+  "description": "Conversor de bases numéricas.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +9,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViniciusHP/conversor-de-bases-numericas.git"
+  },
+  "author": "ViniciusHP",
+  "license": "MIT",
   "dependencies": {
     "@angular/animations": "~12.0.3",
     "@angular/cdk": "^12.0.4",
