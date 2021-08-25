@@ -20,11 +20,11 @@ Conversor de Bases Numéricas
 ---
 
 <p align="center">
- <a href="#-sobre-o-projeto">Sobre o projeto</a> |
- <a href="#-funcionalidades">Funcionalidades</a> |
- <a href="#-executando-o-projeto">Executando o projeto</a> |
- <a href="#-tecnologias">Tecnologias</a> | 
- <a href="#-licença">Licença</a>
+ <a href="#user-content-sobre-o-projeto">Sobre o projeto</a> |
+ <a href="#user-content-funcionalidades">Funcionalidades</a> |
+ <a href="#user-content-executando-o-projeto">Executando o projeto</a> |
+ <a href="#user-content-tecnologias">Tecnologias</a> | 
+ <a href="#user-content-licença">Licença</a>
 </p>
 
 ---
