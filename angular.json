@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/conversor-de-bases",
+            "outputPath": "dist/conversor-de-bases-numericas",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -106,5 +106,5 @@
       }
     }
   },
-  "defaultProject": "conversor-de-bases"
+  "defaultProject": "conversor-de-bases-numericas"
 }
